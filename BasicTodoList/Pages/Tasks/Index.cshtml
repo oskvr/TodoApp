@@ -1,0 +1,61 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@Model.TodoList.Name</h1>
+
+<p>
+    <a asp-page="Create" asp-route-id="@Model.TodoList.Id">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TodoTasks[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TodoTasks[0].DueAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TodoTasks[0].IsImportant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TodoTasks[0].IsCompleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TodoTasks[0].TodoList)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.TodoTasks) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsImportant)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCompleted)
+                @*<input type="checkbox" onclick="form" asp-for="@item.IsCompleted" />*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TodoList.Id)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
