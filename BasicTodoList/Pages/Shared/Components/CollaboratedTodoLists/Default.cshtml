@@ -1,0 +1,13 @@
+﻿@model IEnumerable<TodoList>
+
+<h3 class="font-weight-light pb-3">Assigned to you</h3>
+
+@foreach (var list in Model)
+{
+    <div>
+        <a asp-page="/Tasks/Index" asp-route-id="@list.Id">@list.Name</a>
+        <span>
+            (@Html.DisplayFor(modelItem => list.IncompleteCount))
+        </span>
+    </div>
+}

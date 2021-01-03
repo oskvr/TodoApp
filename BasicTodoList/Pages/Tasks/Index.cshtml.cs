@@ -25,7 +25,8 @@ namespace BasicTodoList.Pages.Tasks
 		}
 		public TodoList TodoList { get; set; }
 		public IList<TodoTask> TodoTasks { get; set; }
-
+		[BindProperty]
+		public TodoTask TodoTask { get; set; }
 		public async Task<IActionResult> OnGetAsync(Guid? id)
 		{
 			if (id is null)
@@ -40,6 +41,21 @@ namespace BasicTodoList.Pages.Tasks
 			TodoTasks = await _context.TodoTasks.Where(task => task.TodoListId == id)
 				.Include(t => t.TodoList).ToListAsync();
 			return Page();
+		}
+
+		public async Task<IActionResult> OnPostAsync(Guid id)
+		{
+			if (!ModelState.IsValid)
+			{
+				return Page();
+			}
+
+			TodoTask.Id = Guid.NewGuid();
+			TodoTask.TodoListId = id;
+			_context.TodoTasks.Add(TodoTask);
+			await _context.SaveChangesAsync();
+
+			return RedirectToPage(nameof(Index), new { id = TodoTask.TodoListId });
 		}
 
 		private bool UserHasPermissions(Guid listId)

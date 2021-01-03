@@ -24,6 +24,8 @@ namespace BasicTodoList.Pages.Tasks
             _context = context;
 			this.userManager = userManager;
 		}
+
+        //TODO: När man skapar en task och går tillbaka så skickar den inte med id (listan == null)
 		public void OnGet()
         {
         }

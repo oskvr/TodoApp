@@ -36,6 +36,7 @@ namespace BasicTodoList
 			services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 			services.AddScoped<ITodoListService, TodoListService>();
+			//services.AddMvc().AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/Lists/Index", ""));
 			services.AddRazorPages();
 		}
 

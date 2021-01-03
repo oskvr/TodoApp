@@ -52,7 +52,7 @@ namespace BasicTodoList.Pages.Lists
             });
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Tasks/Index", new {id=TodoList.Id });
         }
     }
 }

@@ -1,0 +1,17 @@
+﻿@model IEnumerable<TodoList>
+
+    <div class="d-flex pb-3 align-items-center">
+        <h3 class="font-weight-light col-8">Your lists</h3>
+        <a class="text-black col-4" asp-page="/Lists/Create">Add new list</a>
+    </div>
+
+    @foreach (var list in Model)
+    {
+        <div>
+            <a asp-page="/Tasks/Index" asp-route-id="@list.Id">@list.Name</a>
+            <span>
+                (@Html.DisplayFor(modelItem => list.IncompleteCount))
+            </span>
+        </div>
+    }
+
