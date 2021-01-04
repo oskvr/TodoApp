@@ -27,15 +27,17 @@ namespace BasicTodoList.Pages.Tasks
 		public IList<TodoTask> TodoTasks { get; set; }
 		[BindProperty]
 		public TodoTask TodoTask { get; set; }
+		[BindProperty]
+		public bool IsCompleted { get; set; }
 		public async Task<IActionResult> OnGetAsync(Guid? id)
 		{
 			if (id is null)
 			{
-				throw new ArgumentNullException(nameof(id));
+				return NotFound();
 			}
 			if (!UserHasPermissions((Guid)id))
 			{
-				return NotFound("Insufficient permissions");
+				return NotFound("You don't have permissions to view this resource");
 			}
 			TodoList = await _context.TodoLists.FindAsync(id);
 			TodoTasks = await _context.TodoTasks.Where(task => task.TodoListId == id)
@@ -56,6 +58,28 @@ namespace BasicTodoList.Pages.Tasks
 			await _context.SaveChangesAsync();
 
 			return RedirectToPage(nameof(Index), new { id = TodoTask.TodoListId });
+		}
+
+		public async Task<IActionResult> OnPut(Guid id)
+		{
+			var task = _context.TodoTasks.Find(id);
+			_context.Attach(task).State = EntityState.Modified;
+			task.IsCompleted = IsCompleted;
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException) when (!TodoTaskExists(TodoTask.Id))
+			{
+				return NotFound();
+			}
+
+			return RedirectToPage("./Index", new { id = TodoTask.TodoListId });
+		}
+
+		private bool TodoTaskExists(Guid id)
+		{
+			return _context.TodoTasks.Any(task => task.Id == id);
 		}
 
 		private bool UserHasPermissions(Guid listId)
