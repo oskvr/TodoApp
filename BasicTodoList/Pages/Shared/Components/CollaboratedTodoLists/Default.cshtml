@@ -1,13 +1,22 @@
 ﻿@model IEnumerable<TodoList>
 
-<h3 class="font-weight-light pb-3">Assigned to you</h3>
-
-@foreach (var list in Model)
-{
-    <div>
-        <a asp-page="/Tasks/Index" asp-route-id="@list.Id">@list.Name</a>
-        <span>
-            (@Html.DisplayFor(modelItem => list.IncompleteCount))
-        </span>
-    </div>
-}
+<div class="mt-10">
+    <h3 class="text-2xl font-thin p-2 flex items-center gap-2 border-b">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+            <path
+                d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
+        </svg>
+        Assigned to you
+    </h3>
+    <ul>
+        @foreach (var list in Model)
+        {
+            <div class="hover:bg-gray-200">
+                <a asp-page="/Tasks/Index" asp-route-id="@list.Id" class="flex justify-between items-center p-3">
+                    <li>@list.Name</li>
+                    <p class="text-gray-400">@Html.DisplayFor(modelItem => list.IncompleteCount)</p>
+                </a>
+            </div>
+        }
+    </ul>
+</div>
