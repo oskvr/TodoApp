@@ -28,8 +28,6 @@ namespace BasicTodoList.Pages.Tasks
         public IList<TodoTask> TodoTasks { get; set; }
         [BindProperty]
         public TodoTask TodoTask { get; set; }
-        [BindProperty]
-        public bool IsCompleted { get; set; }
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
             if (id is null)
@@ -41,9 +39,8 @@ namespace BasicTodoList.Pages.Tasks
                 return NotFound("You don't have permissions to view this resource");
             }
             TodoList = await _context.TodoLists.Include(list => list.TodoListUsers).FirstOrDefaultAsync(List => List.Id == id);
-            // Creator = TodoList.TodoListUsers.Where(tlu => tlu.Role == Role.Creator).Select(tlu => tlu.ApplicationUser).FirstOrDefault();
             TodoTasks = await _context.TodoTasks.Where(task => task.TodoListId == id)
-                .Include(t => t.TodoList).ToListAsync();
+                .Include(t => t.TodoList).OrderBy(task=>task.CreatedAt).ToListAsync();
             return Page();
         }
 
@@ -62,11 +59,15 @@ namespace BasicTodoList.Pages.Tasks
             return RedirectToPage(nameof(Index), new { id = TodoTask.TodoListId });
         }
 
-        public async Task<IActionResult> OnPut(Guid id)
-        {
+        // TODO: behövs separata metoder för att uppdatera completed och important? Metoden borde iställ
+        public async Task<IActionResult> OnPostUpdateCompleted(Guid id)
+		{
             var task = _context.TodoTasks.Find(id);
+            var todoListId = task.TodoListId;
             _context.Attach(task).State = EntityState.Modified;
-            task.IsCompleted = IsCompleted;
+
+            //This sets the bool to its opposite value
+            task.IsCompleted = !task.IsCompleted;
             try
             {
                 await _context.SaveChangesAsync();
@@ -76,8 +77,47 @@ namespace BasicTodoList.Pages.Tasks
                 return NotFound();
             }
 
+            return RedirectToPage("./Index", new { id = todoListId });
+        }
+
+        public async Task<IActionResult> OnPostUpdateImportant(Guid id)
+        {
+            var task = _context.TodoTasks.Find(id);
+            var todoListId = task.TodoListId;
+            _context.Attach(task).State = EntityState.Modified;
+
+            //This sets the bool to its opposite value
+            task.IsImportant = !task.IsImportant;
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException) when (!TodoTaskExists(TodoTask.Id))
+            {
+                return NotFound();
+            }
+
+            return RedirectToPage("./Index", new { id = todoListId });
+        }
+
+        public async Task<IActionResult> OnPostDeleteAsync(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            TodoTask = await _context.TodoTasks.FindAsync(id);
+
+            if (TodoTask != null)
+            {
+                _context.TodoTasks.Remove(TodoTask);
+                await _context.SaveChangesAsync();
+            }
+
             return RedirectToPage("./Index", new { id = TodoTask.TodoListId });
         }
+
 
         private bool TodoTaskExists(Guid id)
         {

@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace BasicTodoList.Models
 {
-    public class TodoList
+    public class TodoList : BaseEntity
     {
-		public Guid Id { get; set; }
 		[Required]
 		public string Name { get; set; }
-		public DateTime CreatedAt { get; set; } = DateTime.Now;
 		public ICollection<TodoTask> Tasks { get; set; }
 		public ICollection<TodoListUser> TodoListUsers { get; set; }
 

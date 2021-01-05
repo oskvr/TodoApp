@@ -21,4 +21,8 @@
     <Folder Include="Authorization\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\tailwind_config.css" />
+  </ItemGroup>
+
 </Project>

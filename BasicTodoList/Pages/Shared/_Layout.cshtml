@@ -12,9 +12,10 @@
     <title>@ViewData["Title"] - BasicTodoList</title>
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/tailwind.css">
+    <link rel="stylesheet" href="/" media="all" />
 </head>
 
-<body>
+<body class="flex flex-col h-screen">
     <header>
         <nav class="flex justify-between p-2 bg-light-blue-500">
             <div class="flex items-center gap-2 text-white">
@@ -30,28 +31,28 @@
             <partial name="_LoginPartial" />
         </nav>
     </header>
-    <div class="grid grid-cols-12 min-h-screen">
+    <div class="grid grid-cols-12 flex-grow">
 
         @if (SignInManager.IsSignedIn(User))
         {
-            <aside class="col-span-2 flex flex-col bg-gray-50">
+            <aside class="col-span-2 flex flex-col bg-gray-100">
                 @await Component.InvokeAsync("StickyTodoLists")
                 @await Component.InvokeAsync("TodoLists")
                 @await Component.InvokeAsync("CollaboratedTodoLists")
             </aside>
-            <main role="main" class="col-span-8">
+            <main role="main" class="col-span-10 pt-10 m-7">
                 @RenderBody()
             </main>
         }
         else
         {
-            <main role="main" class="col-span-12">
+            <main role="main" class="col-span-12 pt-10 m-7">
                 @RenderBody()
             </main>
         }
 
     </div>
-    <footer class="border-top footer text-muted">
+    <footer class="border-t text-gray-500">
         <div class="container">
             &copy; 2021 - BasicTodoList - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>

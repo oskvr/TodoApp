@@ -11,7 +11,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx tailwindcss-cli@latest build ./wwwroot/css/tailwind_config.css -o ./wwwroot/css/tailwind.css"
   },
   "keywords": [],
   "author": "",

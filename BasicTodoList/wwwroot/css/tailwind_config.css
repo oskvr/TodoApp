@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*run "npm run build" to add these to tailwind.css*/
+@layer components {
+    .button-test {
+        @apply bg-green-500 p-2 text-white;
+    }
+}

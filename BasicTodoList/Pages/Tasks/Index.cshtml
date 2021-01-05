@@ -5,93 +5,120 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="col-span-10 pt-10 m-7">
-    <header class="flex items-baseline justify-between gap-2 p-3 border-b">
-      <h3 class="text-3xl font-thin">@Model.TodoList.Name</h3>
-      @*TODO: Fixa namnet*@
-      <p class="text-xs text-gray-700">Created by: John Doe</p>
-    </header>
+<div class="flex items-baseline justify-between gap-2 p-3 border-b">
+    <h3 class="text-3xl font-thin">@Model.TodoList.Name</h3>
+    <p class="text-xs text-gray-700">Created by: John Doe</p>
+</div>
 
-    <ul class="">
-        @foreach (var task in Model.TodoTasks)
-        {
-      <li class="cursor-pointer hover:bg-gray-50 p-4 border-b">
-        <div class="flex items-center justify-between">
-          <div>
-            <input type="checkbox" class="rounded-full h-5 w-5 text-green-600 cursor-pointer" />
-            <a href="#" class="ml-2 text-gray-700">@task.Description</a>
-          </div>
-          <div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="text-yellow-500" viewBox="0 0 16 16">
-              <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-            </svg>
-          </div>
-        </div>
-@if (task.DueAt != null)
-{
-        <div class="ml-9">
-          <p class="text-sm text-red-500 flex gap-2 items-center">
-            <span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
-                <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-              </svg>
-            </span>
-            @task.DueAt
-          </p>
-        </div>
-}
-      </li> 
-        }
-    </ul>
-
-    <form method="post" class="space-y-1 rounded bg--100 p-3 shadow hover:shadow-md mt-4">
-        <div asp-validation-summary="ModelOnly" class="text-red-500"></div>
-      <input asp-for="TodoTask.Description" id="add-task-input" placeholder="Add new task..." class="rounded border-none w-full p-3" />
-      <span asp-validation-for="TodoTask.Description" class="text-red-500"></span>
-      <div id="add-task-extra" class="space-y-3 flex flex-col hidden">
-        <input asp-for="TodoTask.DueAt" />
+<form method="post" class="space-y-3 rounded bg--100 p-3 shadow hover:shadow-md my-4 w-1/3">
+    <div asp-validation-summary="ModelOnly" class="text-red-500"></div>
+    <input asp-for="TodoTask.Description" wrap="soft" id="add-task-input" placeholder="Add new task..." class="rounded border-none w-full p-1"></input>
+    <span id="task-description-validation" asp-validation-for="TodoTask.Description" class="text-red-500"></span>
+    <div id="add-task-extra" class="space-y-3 flex flex-col hidden">
+        <input asp-for="TodoTask.DueAt" type="date"/>
         <span asp-validation-for="TodoTask.DueAt" class="text-red-500"></span>
+        <label class="">
+            <input class="" asp-for="TodoTask.IsImportant" /> Mark as important
+        </label>
         <div class="space-x-2 pb-4">
-          <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-md">Add task</button>
-          <a id="cancelButton" href="#">Cancel</a>
+            <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-md">Add task</button>
+            <a id="cancelButton" href="#">Cancel</a>
         </div>
-      </div>
-    </form>
-    <div class="flex mt-3 pt-3 space-x-5">
-      <div class="flex items-center gap-2">
+    </div>
+</form>
+<div class="flex gap-1 items-center text-sm">
+    <input class="h-3 w-3 rounded-full text-green-500 cursor-pointer" type="checkbox" id="hide-completed-checkbox" />
+    <label for="hideCompleted">Hide completed tasks</label>
+</div>
+<partial name="_ListOfTasksPartial" model="@Model.TodoTasks" />
+
+<div class="flex mt-3 pt-3 space-x-5">
+    <div class="flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
-          <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-          <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
+            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+            <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
         </svg>
         <a asp-page="/Lists/Invite" asp-route-id="@Model.TodoList.Id">Invite Collaborator</a>
-      </div>
-      <div class="flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-          <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-        </svg>
-        <a asp-page="/Lists/Delete" asp-route-id="@Model.TodoList.Id" >Delete</a>
-      </div>
     </div>
-  </div>
-
+    <div class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+        </svg>
+        <a asp-page="/Lists/Delete" asp-route-id="@Model.TodoList.Id">Delete list</a>
+    </div>
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-        let input = document.querySelector("#add-task-input");
-        let cancelButton = document.querySelector("#cancelButton");
-        let addForm = document.querySelector("#add-task-extra");
-        input.addEventListener("focus", function () {
-            addForm.classList.remove("hidden");
-        })
-        cancelButton.addEventListener("click", function () {
-            addForm.classList.add("hidden");
-        })
+
+        const toggleAddTask = () => {
+            const input = document.querySelector("#add-task-input");
+            const cancelButton = document.querySelector("#cancelButton");
+            const addForm = document.querySelector("#add-task-extra");
+            const taskDescriptionValidation = document.querySelector("#task-description-validation");
+
+            input.addEventListener("focus", function () {
+                addForm.classList.remove("hidden");
+                taskDescriptionValidation.classList.remove("hidden");
+            })
+            cancelButton.addEventListener("click", function () {
+                addForm.classList.add("hidden");
+                taskDescriptionValidation.classList.add("hidden");
+            })
+        }
+
+        const toggleTaskOptions = () => {
+            const tasks = document.querySelectorAll(".task");
+            tasks.forEach((task) => {
+                const extra = task.querySelector(".task-options");
+                task.addEventListener("mouseleave", function () {
+                    //document.querySelectorAll(".task-options").forEach(t => {
+                    //    if (!t.classList.contains("hidden")) {
+                    //        t.classList.add("hidden");
+                    //    }
+                    //})
+                    extra.classList.add("hidden");
+                })
+                task.addEventListener("mouseover", function () {
+                    extra.classList.remove("hidden");
+                })
+            })
+
+        }
+        const completedTasks = Array.from(document.querySelectorAll(".task")).filter(task => task.querySelector("input[type='checkbox']").checked)
+        const checkbox = document.querySelector("#hide-completed-checkbox");
+
+        const checkboxEventListener = () => {
+            checkbox.addEventListener("click", function () {
+                if (checkbox.checked) {
+                    localStorage.setItem("hideCompletedTasks", "true");
+                }
+                else {
+                    localStorage.setItem("hideCompletedTasks", "false");
+                }
+                toggleTaskVisibility();
+            })
+        }
+        function toggleTaskVisibility() {
+            if (localStorage.getItem("hideCompletedTasks") === "true") {
+                checkbox.checked = true;
+                completedTasks.forEach((task) => {
+                    task.classList.add("hidden");
+                    checkbox.checked = true;
+                })
+            }
+            else {
+                completedTasks.forEach((task) => {
+                    task.classList.remove("hidden");
+                    checkbox.checked = false;
+                })
+            }
+        }
+        //toggleTaskOptions();
+        toggleTaskVisibility();
+        checkboxEventListener();
+        toggleAddTask();
     </script>
 }
-
-
-
-@*@await Component.InvokeAsync("Tasks")*@
