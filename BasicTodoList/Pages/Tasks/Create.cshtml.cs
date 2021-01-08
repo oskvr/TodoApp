@@ -17,12 +17,10 @@ namespace BasicTodoList.Pages.Tasks
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-		private readonly UserManager<ApplicationUser> userManager;
 
-		public CreateModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+		public CreateModel(ApplicationDbContext context)
         {
             _context = context;
-			this.userManager = userManager;
 		}
 
 		public void OnGet()

@@ -10,28 +10,26 @@ using BasicTodoList.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using BasicTodoList.Services;
+using BasicTodoList.Helpers;
 
 namespace BasicTodoList.Pages.Lists
 {
 	[Authorize]
 	public class IndexModel : PageModel
 	{
-		private readonly UserManager<ApplicationUser> userManager;
 		private readonly ITodoListService todoListService;
 
-		public IndexModel(ITodoListService todoListService, UserManager<ApplicationUser> userManager)
+		public IndexModel(ITodoListService todoListService)
 		{
-			this.userManager = userManager;
 			this.todoListService = todoListService;
 		}
 		public IList<TodoList> TodoLists { get; set; }
 		public IList<TodoList> CollaboratedLists { get; set; }
 		public async Task OnGetAsync()
 		{
-			string userId = userManager.GetUserId(User);
-			TodoLists = await todoListService.GetAll(userId, Role.Creator);
+			TodoLists = await todoListService.GetAll(User.GetUserId(), Role.Creator);
 			TodoLists = TodoLists.OrderByDescending(list=>list.Tasks.Count).ToList();
-			CollaboratedLists = await todoListService.GetAll(userId, Role.Collaborator);
+			CollaboratedLists = await todoListService.GetAll(User.GetUserId(), Role.Collaborator);
 		}
 	}
 }

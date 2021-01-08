@@ -14,11 +14,9 @@ namespace BasicTodoList.Pages.Tasks
 {
 	public class OverdueModel : PageModel
 	{
-		private readonly UserManager<ApplicationUser> userManager;
 
-		public OverdueModel(ITaskService taskService, UserManager<ApplicationUser> userManager)
+		public OverdueModel()
 		{
-			this.userManager = userManager;
 		}
 		public async Task OnGet()
 		{

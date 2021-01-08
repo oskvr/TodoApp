@@ -14,20 +14,16 @@ namespace BasicTodoList.Components
 {
 	public class TodoListsViewComponent : ViewComponent
 	{
-		private readonly UserManager<ApplicationUser> userManager;
 		private readonly ITodoListService todoListService;
 
-		public TodoListsViewComponent(ITodoListService todoListService, UserManager<ApplicationUser> userManager)
+		public TodoListsViewComponent(ITodoListService todoListService)
 		{
-			this.userManager = userManager;
 			this.todoListService = todoListService;
 		}
 		public IList<TodoList> TodoLists { get; set; }
 		public async Task<IViewComponentResult> InvokeAsync()
 		{
-			string userId = userManager.GetUserId((ClaimsPrincipal)User);
-			//TodoLists = await todoListService.GetAll(userId);
-			TodoLists = await todoListService.GetAll(userId, Role.Creator);
+			TodoLists = await todoListService.GetAll(User.GetUserId(), Role.Creator);
 			TodoLists = TodoLists.OrderBy(list => list.CreatedAt).ToList();
 			return View(TodoLists);
 		}

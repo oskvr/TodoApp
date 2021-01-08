@@ -9,6 +9,7 @@ using BasicTodoList.Data;
 using BasicTodoList.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using BasicTodoList.Helpers;
 
 namespace BasicTodoList.Pages.Tasks
 {
@@ -16,12 +17,10 @@ namespace BasicTodoList.Pages.Tasks
 	public class IndexModel : PageModel
 	{
 		private readonly ApplicationDbContext _context;
-		private readonly UserManager<ApplicationUser> userManager;
 
-		public IndexModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+		public IndexModel(ApplicationDbContext context)
 		{
 			_context = context;
-			this.userManager = userManager;
 		}
 		public TodoList TodoList { get; set; }
 		public IList<TodoTask> TodoTasks { get; set; }
@@ -127,8 +126,7 @@ namespace BasicTodoList.Pages.Tasks
 
 		private bool UserHasPermissions(Guid listId)
 		{
-			string userId = userManager.GetUserId(User);
-			return _context.TodoListUser.Any(tlu => tlu.ApplicationUserId == userId && tlu.TodoListId == listId);
+			return _context.TodoListUser.Any(tlu => tlu.ApplicationUserId == User.GetUserId() && tlu.TodoListId == listId);
 		}
 	}
 }

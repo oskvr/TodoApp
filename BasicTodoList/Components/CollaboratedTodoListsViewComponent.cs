@@ -14,12 +14,10 @@ namespace BasicTodoList.Components
 {
 	public class CollaboratedTodoListsViewComponent : ViewComponent
 	{
-		private readonly UserManager<ApplicationUser> userManager;
 		private readonly ITodoListService todoListService;
 
-		public CollaboratedTodoListsViewComponent(ITodoListService todoListService, UserManager<ApplicationUser> userManager)
+		public CollaboratedTodoListsViewComponent(ITodoListService todoListService)
 		{
-			this.userManager = userManager;
 			this.todoListService = todoListService;
 		}
 		public IList<TodoList> TodoLists { get; set; }
