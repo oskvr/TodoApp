@@ -11,12 +11,11 @@ namespace BasicTodoList.Models
 	{
 		[Required]
 		public string Description { get; set; }
-		//TODO: DueAt borde vara en kortare datetime-sträng, utan tidsangivelse
 		public DateTime? DueAt { get; set; }
 		public bool IsImportant { get; set; }
 		public bool IsCompleted { get; set; }
 		public Guid TodoListId { get; set; }
 		public TodoList TodoList { get; set; }
-
+		public bool IsOverdue => DueAt != null && DueAt.Value.Date < DateTime.Today;
 	}
 }

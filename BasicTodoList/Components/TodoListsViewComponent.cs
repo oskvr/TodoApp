@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using BasicTodoList.Helpers;
 
 namespace BasicTodoList.Components
 {
@@ -25,6 +26,7 @@ namespace BasicTodoList.Components
 		public async Task<IViewComponentResult> InvokeAsync()
 		{
 			string userId = userManager.GetUserId((ClaimsPrincipal)User);
+			//TodoLists = await todoListService.GetAll(userId);
 			TodoLists = await todoListService.GetAll(userId, Role.Creator);
 			TodoLists = TodoLists.OrderBy(list => list.CreatedAt).ToList();
 			return View(TodoLists);

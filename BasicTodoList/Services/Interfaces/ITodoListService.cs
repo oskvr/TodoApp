@@ -8,6 +8,7 @@ namespace BasicTodoList.Services
 	{
 		Task<List<TodoList>> GetById(string Id);
 		Task<List<TodoList>> GetAll(string userId, Role role);
+		Task<List<TodoList>> GetAll(string userId);
 		Task<List<TodoList>> GetAll();
 	}
 }

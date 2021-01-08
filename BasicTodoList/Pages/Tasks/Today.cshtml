@@ -6,10 +6,20 @@
     <h3 class="text-4xl font-thin">Today</h3>
     <small class="text-gray-500">@DateTime.Now.ToShortDateString()</small>
 </div>
+
 @if (Model.TodaysTasks.Count() <= 0)
 {
     <div class="grid place-items-center mt-56">
-        <span class="text-gray-600">You don't have anything planned for today</span>
+        @if (Model.UserListCount <= 0)
+        {
+            <span class="text-gray-600">You haven't created any lists</span>
+            <a asp-page="/Lists/Create">Create a new list</a>
+        }
+        else
+        {
+            <span class="text-gray-600">You don't have anything planned for today</span>
+
+        }
     </div>
 }
 else

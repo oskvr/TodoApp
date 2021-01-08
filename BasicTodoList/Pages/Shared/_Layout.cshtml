@@ -13,18 +13,19 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/tailwind.css">
     <link rel="stylesheet" href="/" media="all" />
+    <link rel="stylesheet" href="https://npmcdn.com/flatpickr/dist/themes/material_red.css">
 </head>
 
 <body class="flex flex-col h-screen">
     <header>
         <nav class="flex justify-between p-2 bg-light-blue-500">
-            <div class="flex items-center gap-2 text-white">
+            <a asp-page="/Index" class="flex items-center gap-2 text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
                     <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z" />
                     <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z" />
                 </svg>
-                <h1 class="text-lg font-semibold">TODO<span class="text-sm font-thin">.NET</span></h1>
-            </div>
+                <span class="text-lg font-semibold">TODO<span class="text-sm font-thin">.NET</span></span>
+            </a>
             <div>
                 <input type="text" class="w-96 border-none rounded-3xl px-6" placeholder="Search..." />
             </div>

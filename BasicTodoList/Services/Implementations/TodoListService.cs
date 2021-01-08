@@ -26,6 +26,15 @@ namespace BasicTodoList.Services
 			.Select(t => t.TodoList)
 			.ToListAsync();
 		}
+		public async Task<List<TodoList>> GetAll(string userId)
+		{
+			return await _context.TodoListUser
+			.Include(t => t.TodoList)
+			.ThenInclude(t => t.Tasks)
+			.Where(t => t.ApplicationUserId == userId)
+			.Select(t => t.TodoList)
+			.ToListAsync();
+		}
 		public async Task<List<TodoList>> GetAll()
 		{
 			return await _context.TodoListUser

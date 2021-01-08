@@ -5,33 +5,17 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="flex items-baseline justify-between gap-2 p-3 border-b">
-    <h3 class="text-3xl font-thin">@Model.TodoList.Name</h3>
-    <p class="text-xs text-gray-700">Created by: John Doe</p>
+<div class="flex items-baseline justify-between gap-2 mr-10 py-3 border-b">
+    <h3 class="text-4xl font-thin">@Model.TodoList.Name</h3>
 </div>
 
-<form method="post" class="space-y-3 rounded bg--100 p-3 shadow hover:shadow-md my-4 w-1/3">
-    <div asp-validation-summary="ModelOnly" class="text-red-500"></div>
-    <input asp-for="TodoTask.Description" wrap="soft" id="add-task-input" placeholder="Add new task..." class="rounded border-none w-full p-1"></input>
-    <span id="task-description-validation" asp-validation-for="TodoTask.Description" class="text-red-500"></span>
-    <div id="add-task-extra" class="space-y-3 flex flex-col hidden">
-        <input asp-for="TodoTask.DueAt" type="date"/>
-        <span asp-validation-for="TodoTask.DueAt" class="text-red-500"></span>
-        <label class="">
-            <input class="" asp-for="TodoTask.IsImportant" /> Mark as important
-        </label>
-        <div class="space-x-2 pb-4">
-            <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-md">Add task</button>
-            <a id="cancelButton" href="#">Cancel</a>
-        </div>
-    </div>
-</form>
-<div class="flex gap-1 items-center text-sm">
+
+<div class="flex gap-1 items-center text-sm justify-end mr-10 mt-2">
     <input class="h-3 w-3 rounded-full text-green-500 cursor-pointer" type="checkbox" id="hide-completed-checkbox" />
     <label for="hideCompleted">Hide completed tasks</label>
 </div>
+<partial name="_AddTaskPartial" model="@Model.TodoTask" />
 <partial name="_ListOfTasksPartial" model="@Model.TodoTasks" />
-
 <div class="flex mt-3 pt-3 space-x-5">
     <div class="flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
@@ -41,63 +25,43 @@
         <a asp-page="/Lists/Invite" asp-route-id="@Model.TodoList.Id">Invite Collaborator</a>
     </div>
     <div class="flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-        </svg>
+        <img src="/img/icons/delete-list.svg" alt="" />
         <a asp-page="/Lists/Delete" asp-route-id="@Model.TodoList.Id">Delete list</a>
     </div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
+         let startPicker = flatpickr("#dueAt", {
+            locale: "en",
+            enableTime: false,
+            altInput: false,
+            altFormat: "l F j",
+            dateFormat: "Y-m-d",
+            minDate: "@DateTime.Now.Date",
+        }) 
 
         const toggleAddTask = () => {
-            const input = document.querySelector("#add-task-input");
-            const cancelButton = document.querySelector("#cancelButton");
-            const addForm = document.querySelector("#add-task-extra");
-            const taskDescriptionValidation = document.querySelector("#task-description-validation");
-
-            input.addEventListener("focus", function () {
-                addForm.classList.remove("hidden");
-                taskDescriptionValidation.classList.remove("hidden");
+            $('#add-task-input').focus(function () {
+                $("#add-task-extra").show("fast");
+                $("#task-description-validation").removeClass("hidden");
             })
-            cancelButton.addEventListener("click", function () {
-                addForm.classList.add("hidden");
-                taskDescriptionValidation.classList.add("hidden");
+
+            $('#cancel-button').click(function () {
+                $("#add-task-extra").hide("fast");
+                $("#task-description-validation").addClass("hidden");
+                $("#add-task-input").contents.remove();
             })
         }
 
-        const toggleTaskOptions = () => {
-            const tasks = document.querySelectorAll(".task");
-            tasks.forEach((task) => {
-                const extra = task.querySelector(".task-options");
-                task.addEventListener("mouseleave", function () {
-                    //document.querySelectorAll(".task-options").forEach(t => {
-                    //    if (!t.classList.contains("hidden")) {
-                    //        t.classList.add("hidden");
-                    //    }
-                    //})
-                    extra.classList.add("hidden");
-                })
-                task.addEventListener("mouseover", function () {
-                    extra.classList.remove("hidden");
-                })
-            })
-
-        }
         const completedTasks = Array.from(document.querySelectorAll(".task")).filter(task => task.querySelector("input[type='checkbox']").checked)
         const checkbox = document.querySelector("#hide-completed-checkbox");
 
         const checkboxEventListener = () => {
             checkbox.addEventListener("click", function () {
-                if (checkbox.checked) {
-                    localStorage.setItem("hideCompletedTasks", "true");
-                }
-                else {
-                    localStorage.setItem("hideCompletedTasks", "false");
-                }
+                localStorage.setItem("hideCompletedTasks", checkbox.checked ? "true" : "false");
                 toggleTaskVisibility();
             })
         }
@@ -106,17 +70,16 @@
                 checkbox.checked = true;
                 completedTasks.forEach((task) => {
                     task.classList.add("hidden");
-                    checkbox.checked = true;
                 })
             }
             else {
+                checkbox.checked = false;
                 completedTasks.forEach((task) => {
                     task.classList.remove("hidden");
-                    checkbox.checked = false;
                 })
             }
         }
-        //toggleTaskOptions();
+
         toggleTaskVisibility();
         checkboxEventListener();
         toggleAddTask();
