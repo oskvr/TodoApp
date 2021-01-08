@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using BasicTodoList.Data;
 using BasicTodoList.Helpers;
 using BasicTodoList.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 

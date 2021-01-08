@@ -1,15 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BasicTodoList.Models;
 using BasicTodoList.Models.ViewModels;
-using BasicTodoList.Services;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using BasicTodoList.Data;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using BasicTodoList.Models;
+using System.Linq;
 using BasicTodoList.Helpers;
+using System;
 
 public class StickyTodoListsViewComponent : ViewComponent
 {
@@ -18,6 +16,7 @@ public class StickyTodoListsViewComponent : ViewComponent
 	public SidebarListItemViewModel Important { get; set; }
 	public SidebarListItemViewModel Overdue { get; set; }
 	public List<SidebarListItemViewModel> SidebarModels { get; set; } = new List<SidebarListItemViewModel>();
+	private IList<TodoTask> UsersTasks { get; set; }
 
 	private readonly ApplicationDbContext context;
 
@@ -26,39 +25,49 @@ public class StickyTodoListsViewComponent : ViewComponent
 		this.context = context;
 	}
 	public async Task<IViewComponentResult> InvokeAsync()
-    {
+	{
+		UsersTasks = await context.TodoTasks
+				.Include(task => task.TodoList)
+				.ThenInclude(list => list.TodoListUsers)
+				.Where(task => task.TodoList.TodoListUsers.Any(tlu => tlu.ApplicationUserId == User.GetUserId())).ToListAsync();
+
+		var todaysTasksCount = UsersTasks.Count(task => task.DueAt != null && task.DueAt.Value.Date == DateTime.Now.Date && !task.IsCompleted);
+		var plannedTasksCount = UsersTasks.Count(task => task.DueAt != null && task.DueAt.Value.Date >= DateTime.Today && !task.IsCompleted);
+		var importantTasksCount = UsersTasks.Count(task => task.IsImportant && !task.IsCompleted);
+		var overdueTasksCount = UsersTasks.Count(task => task.DueAt != null && task.DueAt.Value.Date < DateTime.Today && !task.IsCompleted);
+
 		Today = new SidebarListItemViewModel
 		{
 			Name = "Today",
 			AspPage = "/Tasks/Today",
 			Icon = "today-list.svg",
-			IncompleteTasksCount = 9,
+			IncompleteTasksCount = todaysTasksCount,
 		};
 		Planned = new SidebarListItemViewModel
 		{
 			Name = "Planned",
 			AspPage = "/Tasks/Planned",
 			Icon = "planned-list.svg",
-			IncompleteTasksCount = 8,
+			IncompleteTasksCount = plannedTasksCount,
 		};
 		Important = new SidebarListItemViewModel
 		{
 			Name = "Important",
 			AspPage = "/Tasks/Important",
 			Icon = "important-list.svg",
-			IncompleteTasksCount = 5,
+			IncompleteTasksCount = importantTasksCount,
 		};
 		Overdue = new SidebarListItemViewModel
 		{
 			Name = "Overdue",
 			AspPage = "/Tasks/Overdue",
 			Icon = "overdue-list.svg",
-			IncompleteTasksCount = 0,
+			IncompleteTasksCount = overdueTasksCount,
 		};
 		SidebarModels.Add(Today);
 		SidebarModels.Add(Planned);
 		SidebarModels.Add(Important);
 		SidebarModels.Add(Overdue);
 		return View(SidebarModels);
-    }
+	}
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,7 +8,7 @@ using BasicTodoList.Models;
 
 namespace BasicTodoList.Pages.Lists
 {
-    public class DeleteModel : PageModel
+	public class DeleteModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 

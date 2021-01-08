@@ -1,11 +1,27 @@
 ﻿@page
-@model TodayModel
+@model OverdueModel
 @{
 }
 <div class="flex items-baseline gap-2 p-3 border-b">
-    <h3 class="text-4xl font-thin">Overdue</h3>
+    <h3 class="text-4xl">Overdue</h3>
 </div>
 
-<div class="grid place-items-center mt-56">
-    <span class="text-gray-600">No tasks overdue</span>
-</div>
+@if (Model.OverdueTasks.Count() <= 0)
+{
+    <div class="grid place-items-center mt-56">
+        @if (Model.UserListCount <= 0)
+        {
+            <span class="text-gray-600 text-lg">You haven't created any lists</span>
+            <a asp-page="/Lists/Create" class="border-0 p-2 hover:bg-blue-500">Create a new list</a>
+        }
+        else
+        {
+            <span class="text-gray-600">Looks like you don't have anything overdue</span>
+
+        }
+    </div>
+}
+else
+{
+    <partial name="_ListOfTasksPartial" model="Model.OverdueTasks" />
+}

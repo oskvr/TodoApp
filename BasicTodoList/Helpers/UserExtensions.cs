@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BasicTodoList.Helpers
 {
-	public static class UserHelpers
+	public static class UserExtensions
 	{
-		//Returns the Id of the signed in user
+		/// <summary>
+		/// Returns the Id of the current user
+		/// </summary>
 		public static string GetUserId(this IPrincipal principal)
 		{
 			var claimsIdentity = (ClaimsIdentity)principal.Identity;

@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using BasicTodoList.Data;
 using BasicTodoList.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using BasicTodoList.Helpers;
 
 namespace BasicTodoList.Pages.Tasks
@@ -55,7 +54,7 @@ namespace BasicTodoList.Pages.Tasks
 		{
 			if (!ModelState.IsValid)
 			{
-				return Page();
+				return RedirectToPage("/Tasks/Today");
 			}
 
 			TodoTask.Id = Guid.NewGuid();

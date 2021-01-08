@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BasicTodoList.Models.ViewModels
+﻿namespace BasicTodoList.Models.ViewModels
 {
-    public class SidebarListItemViewModel
+	public class SidebarListItemViewModel
     {
 		public string Name { get; set; }
 		public int? IncompleteTasksCount { get; set; }

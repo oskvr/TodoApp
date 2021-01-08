@@ -1,17 +1,19 @@
 ﻿@model TodoTask
 
-<form method="post" class="space-y-3 rounded bg--100 p-3 shadow hover:shadow-md w-1/3">
+<form method="post" class="space-y-3 rounded p-2 shadow transition hover:shadow-md w-1/3">
     <div asp-validation-summary="ModelOnly" class="text-red-500"></div>
-    <input asp-for="Description" wrap="soft" id="add-task-input" placeholder="Add new task..." class="rounded border-none w-full p-3" />
+    <input asp-for="Description" wrap="soft" id="add-task-input" placeholder="Add new task..." class="rounded focus:outline-none border-none w-full p-4" />
     <span id="task-description-validation" asp-validation-for="Description" class="text-red-500"></span>
-    <div id="add-task-extra" class="space-y-3 flex flex-col hidden">
-        <input asp-for="DueAt" id="dueAt" placeholder="Add a due date..."/>
-        <label class="">
-            <input class="" asp-for="IsImportant" /> Mark as important
-        </label>
-        <div class="space-x-2 pb-4">
-            <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-md">Add task</button>
+    <div id="add-task-extra" class="text-sm space-y-3 flex items-baseline gap-5" style="display: none;">
+        <input class="rounded border-0 text-xs" asp-for="DueAt" id="dueAt" placeholder="Set a due date" />
+        @*<label class="">
+                <input class="" asp-for="IsImportant" /> Mark as important
+            </label>*@
+
+        <div class="space-x-2">
+            <button class="bg-red-500 hover:bg-red-600 transition text-white py-1 px-2 rounded">Add task</button>
             <a id="cancel-button" href="#">Cancel</a>
         </div>
+
     </div>
 </form>

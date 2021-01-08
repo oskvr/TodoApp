@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BasicTodoList.Models
 {
-    public class TodoList : BaseEntity
+	public class TodoList : BaseEntity
     {
 		[Required]
 		public string Name { get; set; }

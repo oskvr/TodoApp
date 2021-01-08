@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BasicTodoList.Models
 {
@@ -16,6 +12,8 @@ namespace BasicTodoList.Models
 		public bool IsCompleted { get; set; }
 		public Guid TodoListId { get; set; }
 		public TodoList TodoList { get; set; }
+
+		//TODO: Den här ger ett invalid modelstate när man sätter due date före dagens datum
 		public bool IsOverdue => DueAt != null && DueAt.Value.Date < DateTime.Today;
 	}
 }
