@@ -7,4 +7,8 @@
     .button-test {
         @apply bg-green-500 p-2 text-white;
     }
+
+    button{
+        @apply focus:outline-none;
+    }
 }

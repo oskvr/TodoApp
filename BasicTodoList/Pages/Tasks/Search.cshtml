@@ -4,7 +4,7 @@
     ViewData["Title"] = "Search results";
 }
 <div class="flex items-baseline gap-2 p-3 border-b">
-    <h3 class="text-4xl">@Model.SearchResults.Count @(Model.SearchResults.Count == 1?"result":"results") for: <span class="font-thin">"@Model.SearchString"</span> </h3>
+    <h3 class="text-4xl">@Model.SearchResults.Count @(Model.SearchResults.Count == 1?"result":"results") for <span class="font-thin">"@Model.SearchString"</span> </h3>
 </div>
 
 @if (Model.SearchResults.Count <= 0)

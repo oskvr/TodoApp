@@ -41,7 +41,7 @@ namespace BasicTodoList.Pages.Tasks
 			{
 				return NotFound();
 			}
-			TodoList = await _context.TodoLists.Include(list=>list.Tasks).Include(list => list.TodoListUsers).FirstOrDefaultAsync(List => List.Id == id);
+			TodoList = await _context.TodoLists.Include(list => list.Tasks).Include(list => list.TodoListUsers).FirstOrDefaultAsync(List => List.Id == id);
 
 			UserIsListCreator = TodoList.IsUserCreator(User.GetUserId());
 
@@ -50,7 +50,7 @@ namespace BasicTodoList.Pages.Tasks
 
 		private bool ListExists(Guid? id)
 		{
-			return _context.TodoLists.Any(list=>list.Id == id);
+			return _context.TodoLists.Any(list => list.Id == id);
 		}
 
 		public async Task<IActionResult> OnPostAsync(Guid id)
@@ -118,6 +118,23 @@ namespace BasicTodoList.Pages.Tasks
 			}
 
 			return Redirect(Request.Headers["Referer"].ToString());
+		}
+		public async Task<IActionResult> OnPostDeleteListAsync(Guid? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			TodoList = await _context.TodoLists.FindAsync(id);
+
+			if (TodoList != null)
+			{
+				_context.TodoLists.Remove(TodoList);
+				await _context.SaveChangesAsync();
+			}
+
+			return RedirectToPage("/Tasks/Today");
 		}
 
 
