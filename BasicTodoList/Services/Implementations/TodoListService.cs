@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BasicTodoList.Services
 {
-	public class TodoListService : ITodoListService
+	public class TodoListService
 	{
 		private readonly ApplicationDbContext _context;
 

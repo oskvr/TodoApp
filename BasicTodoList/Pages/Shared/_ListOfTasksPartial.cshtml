@@ -74,7 +74,7 @@
                             {
                                 <span>Yesterday</span>
                             }
-                            @if (task.DueAt.Value.Date == DateTime.Today)
+                            else if (task.DueAt.Value.Date == DateTime.Today)
                             {
                                 <span>Today</span>
                             }

@@ -10,9 +10,9 @@ namespace BasicTodoList.Components
 {
 	public class TodoListsViewComponent : ViewComponent
 	{
-		private readonly ITodoListService todoListService;
+		private readonly TodoListService todoListService;
 
-		public TodoListsViewComponent(ITodoListService todoListService)
+		public TodoListsViewComponent(TodoListService todoListService)
 		{
 			this.todoListService = todoListService;
 		}

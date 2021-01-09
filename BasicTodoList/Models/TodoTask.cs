@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BasicTodoList.Models
 {
@@ -12,8 +13,8 @@ namespace BasicTodoList.Models
 		public bool IsCompleted { get; set; }
 		public Guid TodoListId { get; set; }
 		public TodoList TodoList { get; set; }
-
-		//TODO: Den här ger ett invalid modelstate när man sätter due date före dagens datum
+		
+		// Computed properties
 		public bool IsOverdue => DueAt != null && DueAt.Value.Date < DateTime.Today;
 	}
 }

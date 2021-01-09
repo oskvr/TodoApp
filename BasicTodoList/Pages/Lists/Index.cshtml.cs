@@ -12,9 +12,9 @@ namespace BasicTodoList.Pages.Lists
 	[Authorize]
 	public class IndexModel : PageModel
 	{
-		private readonly ITodoListService todoListService;
+		private readonly TodoListService todoListService;
 
-		public IndexModel(ITodoListService todoListService)
+		public IndexModel(TodoListService todoListService)
 		{
 			this.todoListService = todoListService;
 		}

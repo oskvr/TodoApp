@@ -22,6 +22,7 @@ namespace BasicTodoList.Pages.Tasks
 			_context = context;
 		}
 		public TodoList TodoList { get; set; }
+		public bool UserIsListCreator { get; set; }
 		public IList<TodoTask> TodoTasks { get; set; }
 		[BindProperty]
 		public TodoTask TodoTask { get; set; }
@@ -40,6 +41,17 @@ namespace BasicTodoList.Pages.Tasks
 				return NotFound();
 			}
 			TodoList = await _context.TodoLists.Include(list => list.TodoListUsers).FirstOrDefaultAsync(List => List.Id == id);
+			// REV 1
+
+			//UserIsListCreator = TodoList.TodoListUsers.Any(tlu => tlu.TodoListId == id
+			//	&& tlu.ApplicationUserId == User.GetUserId()
+			//	&& tlu.Role == Role.Creator);
+
+			// REV 2
+			//UserIsListCreator = TodoList.TodoListUsers.Any(tlu => tlu.UserIsCreator(User.GetUserId()));
+
+			// REV 3
+			UserIsListCreator = TodoList.IsUserCreator(User.GetUserId());
 			TodoTasks = await _context.TodoTasks.Where(task => task.TodoListId == id)
 				.Include(t => t.TodoList).OrderBy(task => task.CreatedAt).ToListAsync();
 			return Page();
@@ -54,7 +66,7 @@ namespace BasicTodoList.Pages.Tasks
 		{
 			if (!ModelState.IsValid)
 			{
-				return RedirectToPage("/Tasks/Today");
+				return Page();
 			}
 
 			TodoTask.Id = Guid.NewGuid();

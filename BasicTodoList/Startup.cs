@@ -28,7 +28,7 @@ namespace BasicTodoList
 			services.AddDatabaseDeveloperPageExceptionFilter();
 			services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
-			services.AddScoped<ITodoListService, TodoListService>();
+			services.AddScoped<TodoListService>();
 			//services.AddScoped<ITaskService, TaskService>();
 			//services.AddMvc().AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/Lists/Index", ""));
 			services.AddRazorPages();

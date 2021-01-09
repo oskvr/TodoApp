@@ -10,11 +10,10 @@
 </div>
 <hr />
 
-<div class="">
-    <form method="post">
+<div class="mt-5">
+    <form method="post" class="flex items-center gap-4 p-3">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="">
-            <label asp-for="TodoList.Name" class="control-label"></label>
             <input asp-for="TodoList.Name" class="form-control" placeholder="List name..." />
             <span asp-validation-for="TodoList.Name" class="text-danger"></span>
         </div>
