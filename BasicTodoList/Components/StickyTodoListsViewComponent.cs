@@ -31,10 +31,12 @@ public class StickyTodoListsViewComponent : ViewComponent
 				.ThenInclude(list => list.TodoListUsers)
 				.Where(task => task.TodoList.TodoListUsers.Any(tlu => tlu.ApplicationUserId == User.GetUserId())).ToListAsync();
 
-		var todaysTasksCount = UsersTasks.Count(task => task.DueAt != null && task.DueAt.Value.Date == DateTime.Now.Date && !task.IsCompleted);
-		var plannedTasksCount = UsersTasks.Count(task => task.DueAt != null && task.DueAt.Value.Date >= DateTime.Today && !task.IsCompleted);
+		var todaysTasksCount = UsersTasks.Count(task => task.IsDueToday && !task.IsCompleted);
+		var plannedTasksCount = UsersTasks.Count(task => task.IsPlanned && !task.IsCompleted);
 		var importantTasksCount = UsersTasks.Count(task => task.IsImportant && !task.IsCompleted);
-		var overdueTasksCount = UsersTasks.Count(task => task.DueAt != null && task.DueAt.Value.Date < DateTime.Today && !task.IsCompleted);
+		var overdueTasksCount = UsersTasks.Count(task => task.IsOverdue && !task.IsCompleted);
+
+
 
 		Today = new SidebarListItemViewModel
 		{

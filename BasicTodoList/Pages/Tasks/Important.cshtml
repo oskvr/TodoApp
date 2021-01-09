@@ -1,6 +1,7 @@
 ﻿@page
 @model ImportantModel
 @{
+    ViewData["Title"] = "Important";
 }
 
 <div class="flex items-baseline gap-2 p-3 border-b">
@@ -15,4 +16,8 @@
 else
 {
     <partial name="_ListOfTasksPartial" model="Model.ImportantTasks" />
+}
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ShowLinkScriptPartial");}
 }

@@ -5,7 +5,7 @@
         <img src="~/img/icons/assigned-to-you_heading.svg" alt="" />
         Assigned to you
     </h3>
-    <ul>
+    <ul id="assigned-to-you">
         @foreach (var list in Model)
         {
             <partial name="_SidebarListItemPartial" model="@(new SidebarListItemViewModel { IncompleteTasksCount = list.IncompleteCount, AspPage ="/Tasks/Index", Name=list.Name, RouteId=list.Id.ToString() })" />

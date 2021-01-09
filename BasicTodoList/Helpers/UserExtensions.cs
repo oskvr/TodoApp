@@ -6,7 +6,7 @@ namespace BasicTodoList.Helpers
 	public static class UserExtensions
 	{
 		/// <summary>
-		/// Returns the Id of the current user
+		/// Returns the Id of the current signed-in user
 		/// </summary>
 		public static string GetUserId(this IPrincipal principal)
 		{

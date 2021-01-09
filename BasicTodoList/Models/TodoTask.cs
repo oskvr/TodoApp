@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace BasicTodoList.Models
 {
@@ -16,5 +17,9 @@ namespace BasicTodoList.Models
 		
 		// Computed properties
 		public bool IsOverdue => DueAt != null && DueAt.Value.Date < DateTime.Today;
+
+		public bool IsDueToday => DueAt != null && DueAt.Value.Date == DateTime.Now.Date;
+
+		public bool IsPlanned => DueAt != null && DueAt.Value.Date >= DateTime.Today;
 	}
 }

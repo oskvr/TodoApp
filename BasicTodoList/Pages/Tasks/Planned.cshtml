@@ -1,6 +1,7 @@
 ﻿@page
-@model BasicTodoList.Pages.Tasks.PlannedModel
+@model PlannedModel
 @{
+    ViewData["Title"] = "Planned";
 }
 
 <div class="flex items-baseline gap-2 p-3 border-b">
@@ -15,4 +16,8 @@
 else
 {
     <partial name="_ListOfTasksPartial" model="Model.PlannedTasks" />
+}
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ShowLinkScriptPartial");}
 }

@@ -1,0 +1,23 @@
+﻿@page
+@model SearchModel
+@{
+    ViewData["Title"] = "Search results";
+}
+<div class="flex items-baseline gap-2 p-3 border-b">
+    <h3 class="text-4xl">@Model.SearchResults.Count @(Model.SearchResults.Count == 1?"result":"results") for: <span class="font-thin">"@Model.SearchString"</span> </h3>
+</div>
+
+@if (Model.SearchResults.Count <= 0)
+{
+    <div class="grid place-items-center mt-56">
+        <span class="text-gray-600">No results found</span>
+    </div>
+}
+else
+{
+    <partial name="_ListOfTasksPartial" model="Model.SearchResults" />
+}
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ShowLinkScriptPartial");}
+}

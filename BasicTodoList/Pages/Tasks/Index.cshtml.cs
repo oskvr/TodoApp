@@ -9,9 +9,11 @@ using BasicTodoList.Data;
 using BasicTodoList.Models;
 using Microsoft.AspNetCore.Authorization;
 using BasicTodoList.Helpers;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace BasicTodoList.Pages.Tasks
 {
+
 	[Authorize]
 	public class IndexModel : PageModel
 	{
@@ -23,12 +25,11 @@ namespace BasicTodoList.Pages.Tasks
 		}
 		public TodoList TodoList { get; set; }
 		public bool UserIsListCreator { get; set; }
-		public IList<TodoTask> TodoTasks { get; set; }
 		[BindProperty]
 		public TodoTask TodoTask { get; set; }
 		public async Task<IActionResult> OnGetAsync(Guid? id)
 		{
-			if (id is null)
+			if (id == null)
 			{
 				return NotFound();
 			}
@@ -40,20 +41,10 @@ namespace BasicTodoList.Pages.Tasks
 			{
 				return NotFound();
 			}
-			TodoList = await _context.TodoLists.Include(list => list.TodoListUsers).FirstOrDefaultAsync(List => List.Id == id);
-			// REV 1
+			TodoList = await _context.TodoLists.Include(list=>list.Tasks).Include(list => list.TodoListUsers).FirstOrDefaultAsync(List => List.Id == id);
 
-			//UserIsListCreator = TodoList.TodoListUsers.Any(tlu => tlu.TodoListId == id
-			//	&& tlu.ApplicationUserId == User.GetUserId()
-			//	&& tlu.Role == Role.Creator);
-
-			// REV 2
-			//UserIsListCreator = TodoList.TodoListUsers.Any(tlu => tlu.UserIsCreator(User.GetUserId()));
-
-			// REV 3
 			UserIsListCreator = TodoList.IsUserCreator(User.GetUserId());
-			TodoTasks = await _context.TodoTasks.Where(task => task.TodoListId == id)
-				.Include(t => t.TodoList).OrderBy(task => task.CreatedAt).ToListAsync();
+
 			return Page();
 		}
 

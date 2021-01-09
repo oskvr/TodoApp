@@ -1,6 +1,7 @@
 ﻿@page
 @model OverdueModel
 @{
+    ViewData["Title"] = "Overdue";
 }
 <div class="flex items-baseline gap-2 p-3 border-b">
     <h3 class="text-4xl">Overdue</h3>
@@ -24,4 +25,8 @@
 else
 {
     <partial name="_ListOfTasksPartial" model="Model.OverdueTasks" />
+}
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ShowLinkScriptPartial");}
 }
