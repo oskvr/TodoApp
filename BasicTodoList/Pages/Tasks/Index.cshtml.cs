@@ -98,7 +98,6 @@ namespace BasicTodoList.Pages.Tasks
 				return NotFound();
 			}
 
-			//return RedirectToPage("./Index", new { id = todoListId });
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 
@@ -110,7 +109,6 @@ namespace BasicTodoList.Pages.Tasks
 			}
 
 			TodoTask = await _context.TodoTasks.FindAsync(id);
-
 			if (TodoTask != null)
 			{
 				_context.TodoTasks.Remove(TodoTask);
@@ -125,8 +123,12 @@ namespace BasicTodoList.Pages.Tasks
 			{
 				return NotFound();
 			}
+			TodoList = await _context.TodoLists.Include(list => list.TodoListUsers).FirstOrDefaultAsync(list => list.Id == id);
+			if (!TodoList.IsUserCreator(User.GetUserId()))
+			{
+				return NotFound();
+			}
 
-			TodoList = await _context.TodoLists.FindAsync(id);
 
 			if (TodoList != null)
 			{
