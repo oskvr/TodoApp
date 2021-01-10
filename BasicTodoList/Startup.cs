@@ -26,7 +26,11 @@ namespace BasicTodoList
 				options.UseSqlServer(
 					Configuration.GetConnectionString("DefaultConnection")));
 			services.AddDatabaseDeveloperPageExceptionFilter();
-			services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+			services.AddDefaultIdentity<ApplicationUser>(options =>
+			{
+				options.SignIn.RequireConfirmedAccount = false;
+				options.Password.RequireNonAlphanumeric = false;
+			})
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 			services.AddScoped<TodoListService>();
 			//services.AddScoped<ITaskService, TaskService>();
@@ -34,33 +38,33 @@ namespace BasicTodoList
 			services.AddRazorPages();
 		}
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+	// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+	public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+	{
+		if (env.IsDevelopment())
 		{
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-				app.UseMigrationsEndPoint();
-			}
-			else
-			{
-				app.UseExceptionHandler("/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-				app.UseHsts();
-			}
-
-			app.UseHttpsRedirection();
-			app.UseStaticFiles();
-
-			app.UseRouting();
-
-			app.UseAuthentication();
-			app.UseAuthorization();
-
-			app.UseEndpoints(endpoints =>
-			{
-				endpoints.MapRazorPages();
-			});
+			app.UseDeveloperExceptionPage();
+			app.UseMigrationsEndPoint();
 		}
+		else
+		{
+			app.UseExceptionHandler("/Error");
+			// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+			app.UseHsts();
+		}
+
+		app.UseHttpsRedirection();
+		app.UseStaticFiles();
+
+		app.UseRouting();
+
+		app.UseAuthentication();
+		app.UseAuthorization();
+
+		app.UseEndpoints(endpoints =>
+		{
+			endpoints.MapRazorPages();
+		});
 	}
+}
 }

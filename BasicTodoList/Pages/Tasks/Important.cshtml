@@ -9,13 +9,14 @@
 </div>
 @if (Model.ImportantTasks.Count() <= 0)
 {
-    <div class="grid place-items-center mt-56">
+    <div class="grid place-items-center mt-56 gap-10">
         <span class="text-gray-600">You don't have any important tasks planned</span>
+        <img src="~/img/icons/undraw_Notify_re.svg" class="h-32" alt="" />
     </div>
 }
 else
 {
-    <partial name="_ListOfTasksPartial" model="Model.ImportantTasks" />
+    <partial name="_ListOfTasksPartial" model="Model.ImportantTasks.OrderBy(t=>t.DueAt==null)" />
 }
 
 @section Scripts{

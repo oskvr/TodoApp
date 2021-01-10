@@ -45,7 +45,7 @@ namespace BasicTodoList.Pages.Lists
 			}
 			if (_context.TodoListUser.Any(tlu => tlu.ApplicationUserId == user.Id && tlu.TodoListId == id))
 			{
-				ModelState.AddModelError("Email", "User has already been added to list");
+				ModelState.AddModelError("Email", "User is already added to the list");
 				return Page();
 			}
 

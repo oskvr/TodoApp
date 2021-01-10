@@ -101,7 +101,7 @@ namespace BasicTodoList.Pages.Tasks
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 
-		public async Task<IActionResult> OnPostDeleteAsync(Guid? id)
+		public async Task<IActionResult> OnPostDeleteTaskAsync(Guid? id)
 		{
 			if (id == null)
 			{
@@ -135,6 +135,21 @@ namespace BasicTodoList.Pages.Tasks
 				_context.TodoLists.Remove(TodoList);
 				await _context.SaveChangesAsync();
 			}
+
+			return RedirectToPage("/Tasks/Today");
+		}
+		public async Task<IActionResult> OnPostRemoveCollaborator(Guid? id)
+		{
+			var user = await _context.TodoListUser
+				.FirstOrDefaultAsync(tlu => tlu.ApplicationUserId == User.GetUserId()
+				&& tlu.TodoListId == id
+				&& tlu.Role == Role.Collaborator);
+			if (user == null)
+			{
+				return RedirectToPage("/Tasks/Index", new { id });
+			}
+			_context.TodoListUser.Remove(user);
+			await _context.SaveChangesAsync();
 
 			return RedirectToPage("/Tasks/Today");
 		}

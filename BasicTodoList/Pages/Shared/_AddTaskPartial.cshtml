@@ -1,11 +1,11 @@
 ﻿@model TodoTask
 
-<form method="post" class="p-2 rounded shadow transition hover:shadow-md w-1/4">
+<form method="post" class="rounded shadow transition hover:shadow-md w-1/4">
     <div asp-validation-summary="ModelOnly" class="text-red-500"></div>
-    <input asp-for="Description" wrap="soft" id="add-task-input" placeholder="Add new task..." class="rounded focus:outline-none border-none w-full p-4" />
+    <input asp-for="Description" wrap="soft" id="add-task-input" placeholder="Add new task..." class="rounded bg-gray-50 focus:outline-none border-none w-full p-4" />
     <span asp-validation-for="Description" class="text-red-500"></span>
-    <div id="add-task-extra" class="text-sm space-y-3 flex items-baseline gap-5" style="display: none;">
-        <input class="rounded border-0 shadow text-xs cursor-pointer" asp-for="DueAt" id="dueAt" placeholder="Set a due date" />
+    <div id="add-task-extra" class="text-sm space-y-3 flex items-baseline gap-5 pb-2" style="display: none;">
+        <input class="rounded border-0 text-xs cursor-pointer" asp-for="DueAt" id="dueAt" placeholder="Set a due date" />
         <label class="text-xs flex items-center gap-1">
             <input class="rounded-full cursor-pointer h-3 w-3 text-green-500" asp-for="IsImportant" /> Mark as important
         </label>

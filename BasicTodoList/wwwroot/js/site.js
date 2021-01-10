@@ -10,7 +10,7 @@ const highlightSelectSidebarList = () => {
     let userClickedOnList = false;
     $(".sidebar-link").filter(function () {
         if ($(this).attr("href") === listId) {
-            $(this).addClass("bg-gray-50 font-semibold");
+            $(this).addClass("bg-gray-50 text-blue-500 font-semibold");
             userClickedOnList = true;
         }
     });
@@ -18,7 +18,8 @@ const highlightSelectSidebarList = () => {
     // If the bool is false it means one of the top categories is selected, eg. Important
     if (!userClickedOnList) {
         // Get the closest h3 that matches the page title, select its parent li element and modify the class
-        $(`.sidebar-link h3:contains(${pageTitle})`).closest("li").addClass("bg-gray-50 font-semibold");
+        const topItem = $(`.sidebar-link h3:contains(${pageTitle})`);
+            topItem.closest("li").addClass("bg-gray-50 text-blue-500 font-semibold");
     }
 }
 highlightSelectSidebarList();

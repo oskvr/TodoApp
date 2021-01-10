@@ -9,8 +9,9 @@
 </div>
 @if (Model.PlannedTasks.Count() <= 0)
 {
-    <div class="grid place-items-center mt-56">
+    <div class="grid place-items-center mt-56 gap-10">
         <span class="text-gray-600">You don't have any upcoming tasks</span>
+        <img src="~/img/icons/undraw_schedule_meeting.svg" class="h-32" alt="" />
     </div>
 }
 else

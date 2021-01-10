@@ -9,9 +9,10 @@
 
 @if (Model.SearchResults.Count <= 0)
 {
-    <div class="grid place-items-center mt-56">
-        <span class="text-gray-600">No results found</span>
-    </div>
+<div class="grid place-items-center mt-56 gap-10">
+    <span class="text-gray-600">No results found</span>
+    <img src="~/img/icons/undraw_web_search.svg" class="h-32" />
+</div>
 }
 else
 {
