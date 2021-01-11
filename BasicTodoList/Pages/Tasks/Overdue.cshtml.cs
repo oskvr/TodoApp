@@ -23,8 +23,8 @@ namespace BasicTodoList.Pages.Tasks
 		}
 		public async Task OnGet()
 		{
-			UserListCount = context.TodoListUser.Count(tlu => tlu.ApplicationUserId == User.GetUserId());
-			OverdueTasks = await context.TodoTasks.GetOverdue(User.GetUserId());
+			UserListCount = context.TodoListUser.Count(tlu => tlu.ApplicationUserId == UserId);
+			OverdueTasks = await context.TodoTasks.GetOverdue(UserId);
 		}
 	}
 }

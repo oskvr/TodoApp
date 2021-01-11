@@ -22,7 +22,6 @@ namespace BasicTodoList.Helpers
 			var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 			return claim.Value;
 		}
-
 	}
 
 	public static class TaskExtensions

@@ -20,7 +20,7 @@ namespace BasicTodoList.Pages.Tasks
 		}
 		public async Task OnGet()
 		{
-			PlannedTasks = await context.TodoTasks.GetPlanned(User.GetUserId());
+			PlannedTasks = await context.TodoTasks.GetPlanned(UserId);
 		}
 	}
 }

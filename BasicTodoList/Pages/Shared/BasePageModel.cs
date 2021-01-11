@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BasicTodoList.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,9 @@ namespace BasicTodoList.Pages.Shared
     [Authorize]
     public class BasePageModel : PageModel
     {
-        
-    }
+		public string UserId
+		{
+			get { return User.GetUserId(); }
+		}
+	}
 }

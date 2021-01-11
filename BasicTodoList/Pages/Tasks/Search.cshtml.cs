@@ -26,7 +26,7 @@ namespace BasicTodoList.Pages.Tasks
 				SearchString = query;
 				query = query.ToLower();
 
-				SearchResults = await context.TodoTasks.GetSearchResults(query, User.GetUserId());
+				SearchResults = await context.TodoTasks.GetSearchResults(query, UserId);
 			}
 		}
 	}

@@ -39,7 +39,7 @@ namespace BasicTodoList.Pages.Tasks
 			}
 			TodoList = await _context.TodoLists.GetById(id);
 			Tasks = TodoList.Tasks.OrderBy(t => t.CreatedAt).OrderBy(t => t.IsCompleted);
-			UserIsListCreator = TodoList.IsUserCreator(User.GetUserId());
+			UserIsListCreator = TodoList.IsUserCreator(UserId);
 
 			return Page();
 		}
@@ -114,7 +114,7 @@ namespace BasicTodoList.Pages.Tasks
 				return NotFound();
 			}
 			TodoList = await _context.TodoLists.GetById(id);
-			if (!TodoList.IsUserCreator(User.GetUserId()))
+			if (!TodoList.IsUserCreator(UserId))
 			{
 				return NotFound();
 			}
@@ -139,7 +139,7 @@ namespace BasicTodoList.Pages.Tasks
 				return NotFound();
 			}
 			var user = await _context.TodoListUser
-				.FirstOrDefaultAsync(tlu => tlu.ApplicationUserId == User.GetUserId()
+				.FirstOrDefaultAsync(tlu => tlu.ApplicationUserId == UserId
 				&& tlu.TodoListId == id
 				&& tlu.Role == Role.Collaborator);
 			if (user != null)
@@ -158,7 +158,7 @@ namespace BasicTodoList.Pages.Tasks
 
 		private bool HasPermission(Guid? listId)
 		{
-			return _context.TodoListUser.Any(tlu => tlu.ApplicationUserId == User.GetUserId() && tlu.TodoListId == listId);
+			return _context.TodoListUser.Any(tlu => tlu.ApplicationUserId == UserId && tlu.TodoListId == listId);
 		}
 	}
 }

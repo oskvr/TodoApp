@@ -22,8 +22,8 @@ namespace BasicTodoList.Pages.Tasks
 		}
 		public async Task OnGet()
 		{
-			UserListCount = context.TodoListUser.Count(tlu => tlu.ApplicationUserId == User.GetUserId());
-			TodaysTasks = await context.TodoTasks.GetDueToday(User.GetUserId());
+			UserListCount = context.TodoListUser.Count(tlu => tlu.ApplicationUserId == UserId);
+			TodaysTasks = await context.TodoTasks.GetDueToday(UserId);
 		}
 	}
 }

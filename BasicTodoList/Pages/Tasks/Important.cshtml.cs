@@ -20,7 +20,7 @@ namespace BasicTodoList.Pages.Tasks
 		}
 		public async Task OnGet()
 		{
-			ImportantTasks = await context.TodoTasks.GetImportant(User.GetUserId());
+			ImportantTasks = await context.TodoTasks.GetImportant(UserId);
 		}
 	}
 }

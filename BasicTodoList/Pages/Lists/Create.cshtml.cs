@@ -38,7 +38,7 @@ namespace BasicTodoList.Pages.Lists
             _context.TodoLists.Add(TodoList);
             _context.TodoListUser.Add(new TodoListUser
             {
-                ApplicationUserId = User.GetUserId(),
+                ApplicationUserId = UserId,
 				TodoListId = TodoList.Id,
 				Role = Role.Creator
             });
