@@ -12,8 +12,6 @@ namespace BasicTodoList.Pages.Tasks
 	public class OverdueModel : BasePageModel
 	{
 		public IEnumerable<TodoTask> OverdueTasks { get; set; }
-		public int UserListCount { get; set; }
-		public int MyProperty { get; set; }
 
 		private readonly ApplicationDbContext context;
 
@@ -23,7 +21,6 @@ namespace BasicTodoList.Pages.Tasks
 		}
 		public async Task OnGet()
 		{
-			UserListCount = context.TodoListUser.Count(tlu => tlu.ApplicationUserId == UserId);
 			OverdueTasks = await context.TodoTasks.GetOverdue(UserId);
 		}
 	}

@@ -10,21 +10,24 @@
 
 @if (Model.TodaysTasks.Count() <= 0)
 {
-<div class="grid place-items-center mt-56 gap-10">
-    @if (Model.UserListCount <= 0)
-    {
-        <span class="text-gray-600 text-lg">You haven't created any todo lists</span>
-        <a asp-page="/Lists/Create" class="bg-blue-400 hover:bg-blue-500 text-white border-0 p-2 rounded">Create a new list</a>
-    }
-    else
-    {
-        <span class="text-gray-600">You don't have anything due today</span>
-        <img src="~/img/icons/undraw_chilling.svg" class="h-32" alt="" />
+    <div class="grid place-items-center mt-56 gap-10">
+        @if (Model.UserListCount <= 0)
+        {
+            <div class="text-center leading-10">
+                <h3 class="text-2xl font-thin">Welcome @User.Identity.Name 👋</h3>
+                <span class="text-gray-600">You haven't created any todo lists yet</span>
+            </div>
+            <a asp-page="/Lists/Create" class="bg-red-400 hover:bg-red-500 text-white border-0 p-2 rounded">Create a new list</a>
+        }
+        else
+        {
+            <span class="text-gray-600">You don't have anything due today</span>
+            <img src="~/img/icons/undraw_chilling.svg" class="h-32" alt="" />
 
-    }
-</div>
+        }
+    </div>
 }
 else
 {
-<partial name="_TodoListPartial" model="@(new TodoListViewModel { TodoList = Model.TodaysTasks, ShowLinksOnTasks = true })" />
+    <partial name="_TodoListPartial" model="@(new TodoListViewModel { TodoList = Model.TodaysTasks, ShowLinksOnTasks = true })" />
 }
