@@ -1,5 +1,5 @@
 # To-do in .NET
-![](https://i.imgur.com/7aCvZBk.jpg)
+![](https://i.imgur.com/uNioowG.jpg)
 Simple overview of use/purpose.
 
 ## Description
@@ -74,7 +74,7 @@ oskvr @ github
 MIT
 
    [Tailwind CSS]: <https://tailwindcss.com/>
-   [ASP.NET Core]: <https://github.com/dotnet/aspnetcore>
+   [ASP.NET Core 5.0]: <https://github.com/dotnet/aspnetcore>
    [Alpine.js]: <https://github.com/alpinejs/alpine>
    [flatpickr]: <https://github.com/flatpickr/flatpickr>
    [jQuery]: <https://github.com/markdown-it/markdown-it>
