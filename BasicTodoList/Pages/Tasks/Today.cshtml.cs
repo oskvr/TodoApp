@@ -4,11 +4,12 @@ using System.Threading.Tasks;
 using BasicTodoList.Data;
 using BasicTodoList.Helpers;
 using BasicTodoList.Models;
+using BasicTodoList.Pages.Shared;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BasicTodoList.Pages.Tasks
 {
-	public class TodayModel : PageModel
+	public class TodayModel : BasePageModel
 	{
 		public IEnumerable<TodoTask> TodaysTasks { get; set; }
 		public int UserListCount { get; set; }

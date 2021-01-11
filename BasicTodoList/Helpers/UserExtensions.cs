@@ -1,4 +1,6 @@
-﻿using BasicTodoList.Models;
+﻿using BasicTodoList.Data;
+using BasicTodoList.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,7 +22,6 @@ namespace BasicTodoList.Helpers
 			var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 			return claim.Value;
 		}
-
 
 	}
 

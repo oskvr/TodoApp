@@ -9,12 +9,12 @@ using BasicTodoList.Data;
 using BasicTodoList.Models;
 using Microsoft.AspNetCore.Authorization;
 using BasicTodoList.Helpers;
+using BasicTodoList.Pages.Shared;
 
 namespace BasicTodoList.Pages.Tasks
 {
 
-	[Authorize]
-	public class IndexModel : PageModel
+	public class IndexModel : BasePageModel
 	{
 		private readonly ApplicationDbContext _context;
 
@@ -35,7 +35,7 @@ namespace BasicTodoList.Pages.Tasks
 			}
 			if (!HasPermission(id))
 			{
-				return NotFound();
+				return new ForbidResult();
 			}
 			TodoList = await _context.TodoLists.GetById(id);
 			Tasks = TodoList.Tasks.OrderBy(t => t.CreatedAt).OrderBy(t => t.IsCompleted);

@@ -3,11 +3,12 @@ using System.Threading.Tasks;
 using BasicTodoList.Data;
 using BasicTodoList.Helpers;
 using BasicTodoList.Models;
+using BasicTodoList.Pages.Shared;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BasicTodoList.Pages.Tasks
 {
-	public class SearchModel : PageModel
+	public class SearchModel : BasePageModel
 	{
 		public string SearchString { get; set; }
 		public IEnumerable<TodoTask> SearchResults { get; set; } = new List<TodoTask>();

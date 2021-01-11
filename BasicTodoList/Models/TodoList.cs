@@ -15,5 +15,6 @@ namespace BasicTodoList.Models
 		public int? TaskCount => Tasks?.Count;
 		public int? IncompleteCount => Tasks?.Count(task => !task.IsCompleted);
 		public bool IsUserCreator(string userId) => TodoListUsers.Any(tlu => tlu.ApplicationUserId == userId && tlu.Role == Role.Creator);
+		public bool IsUserInList(string userId) => TodoListUsers.Any(tlu => tlu.ApplicationUserId == userId);
 	}
 }

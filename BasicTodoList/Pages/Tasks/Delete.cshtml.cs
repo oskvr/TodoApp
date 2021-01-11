@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BasicTodoList.Models;
+using BasicTodoList.Pages.Shared;
 
 namespace BasicTodoList.Pages.Tasks
 {
-	public class DeleteModel : PageModel
+	public class DeleteModel : BasePageModel
     {
         private readonly BasicTodoList.Data.ApplicationDbContext _context;
 

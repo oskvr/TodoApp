@@ -3,12 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using BasicTodoList.Data;
 using BasicTodoList.Models;
+using BasicTodoList.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BasicTodoList.Pages.Lists
 {
-	public class InviteModel : PageModel
+	public class InviteModel : BasePageModel
 	{
 		[BindProperty]
 		public string Email { get; set; }

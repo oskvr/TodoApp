@@ -6,11 +6,11 @@ using BasicTodoList.Data;
 using BasicTodoList.Models;
 using Microsoft.AspNetCore.Authorization;
 using BasicTodoList.Helpers;
+using BasicTodoList.Pages.Shared;
 
 namespace BasicTodoList.Pages.Lists
 {
-	[Authorize]
-    public class CreateModel : PageModel
+    public class CreateModel : BasePageModel
     {
         private readonly ApplicationDbContext _context;
 

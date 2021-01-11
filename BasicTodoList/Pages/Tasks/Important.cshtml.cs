@@ -3,11 +3,12 @@ using System.Threading.Tasks;
 using BasicTodoList.Data;
 using BasicTodoList.Helpers;
 using BasicTodoList.Models;
+using BasicTodoList.Pages.Shared;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BasicTodoList.Pages.Tasks
 {
-	public class ImportantModel : PageModel
+	public class ImportantModel : BasePageModel
     {
 		public IEnumerable<TodoTask> ImportantTasks { get; set; }
 
