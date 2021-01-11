@@ -1,5 +1,6 @@
 ﻿@model SidebarListItemViewModel
 
+@*Partial for displaying a navigation link to a list in the sidebar*@
 <li class="hover:bg-gray-200">
     <a asp-page="@Model.AspPage" asp-route-id="@Model.RouteId" class="sidebar-link flex justify-between items-center p-3">
         <div class="flex items-center gap-2">
@@ -11,7 +12,7 @@
         </div>
         @if (Model.IncompleteTasksCount > 0)
         {
-            <small class="text-white bg-gray-300 text-center flex-shrink-0 rounded-full h-5 w-5">@Model.IncompleteTasksCount</small>
+            <small class="text-white bg-gray-400 text-center flex-shrink-0 rounded-full h-5 w-5">@Model.IncompleteTasksCount</small>
         }
 
     </a>

@@ -1,25 +1,25 @@
 ﻿using BasicTodoList.Models;
-using BasicTodoList.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BasicTodoList.Helpers;
+using BasicTodoList.Data;
 
 namespace BasicTodoList.Components
 {
-	public class TodoListsViewComponent : ViewComponent
+	public class SidebarYourListsViewComponent : ViewComponent
 	{
-		private readonly TodoListService todoListService;
+		private readonly ApplicationDbContext context;
 
-		public TodoListsViewComponent(TodoListService todoListService)
+		public SidebarYourListsViewComponent(ApplicationDbContext context)
 		{
-			this.todoListService = todoListService;
+			this.context = context;
 		}
-		public IList<TodoList> TodoLists { get; set; }
+		public IEnumerable<TodoList> TodoLists { get; set; }
 		public async Task<IViewComponentResult> InvokeAsync()
 		{
-			TodoLists = await todoListService.GetAll(User.GetUserId(), Role.Creator);
+			TodoLists = await context.TodoLists.GetAll(User.GetUserId(), Role.Creator);
 			TodoLists = TodoLists.OrderBy(list => list.CreatedAt).ToList();
 			return View(TodoLists);
 		}

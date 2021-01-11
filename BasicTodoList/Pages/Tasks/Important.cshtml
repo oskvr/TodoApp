@@ -16,9 +16,5 @@
 }
 else
 {
-    <partial name="_ListOfTasksPartial" model="Model.ImportantTasks.OrderBy(t=>t.DueAt==null)" />
-}
-
-@section Scripts{
-    @{await Html.RenderPartialAsync("_ShowLinkScriptPartial");}
+    <partial name="_TodoListPartial" model="@(new TodoListViewModel { TodoList = Model.ImportantTasks, ShowLinksOnTasks = true })" />
 }

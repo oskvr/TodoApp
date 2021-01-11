@@ -26,5 +26,5 @@
 }
 else
 {
-    <partial name="_ListOfTasksPartial" model="Model.TodaysTasks" />
+<partial name="_TodoListPartial" model="@(new TodoListViewModel { TodoList = Model.TodaysTasks, ShowLinksOnTasks = true })" />
 }

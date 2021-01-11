@@ -1,6 +1,5 @@
 using BasicTodoList.Data;
 using BasicTodoList.Models;
-using BasicTodoList.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -32,9 +31,6 @@ namespace BasicTodoList
 				options.Password.RequireNonAlphanumeric = false;
 			})
 				.AddEntityFrameworkStores<ApplicationDbContext>();
-			services.AddScoped<TodoListService>();
-			//services.AddScoped<ITaskService, TaskService>();
-			//services.AddMvc().AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/Lists/Index", ""));
 			services.AddRazorPages();
 		}
 

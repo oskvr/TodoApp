@@ -4,21 +4,17 @@
     ViewData["Title"] = "Search results";
 }
 <div class="flex items-baseline gap-2 p-3 border-b">
-    <h3 class="text-4xl">@Model.SearchResults.Count @(Model.SearchResults.Count == 1?"result":"results") for <span class="font-thin">"@Model.SearchString"</span> </h3>
+    <h3 class="text-4xl">@Model.SearchResults.Count() @(Model.SearchResults.Count() == 1?"result":"results") for <span class="font-thin">"@Model.SearchString"</span> </h3>
 </div>
 
-@if (Model.SearchResults.Count <= 0)
+@if (Model.SearchResults.Count() <= 0)
 {
-<div class="grid place-items-center mt-56 gap-10">
-    <span class="text-gray-600">No results found</span>
-    <img src="~/img/icons/undraw_web_search.svg" class="h-32" />
-</div>
+    <div class="grid place-items-center mt-56 gap-10">
+        <span class="text-gray-600">No results found</span>
+        <img src="~/img/icons/undraw_web_search.svg" class="h-32" />
+    </div>
 }
 else
 {
-    <partial name="_ListOfTasksPartial" model="Model.SearchResults" />
-}
-
-@section Scripts{
-    @{await Html.RenderPartialAsync("_ShowLinkScriptPartial");}
+    <partial name="_TodoListPartial" model="@(new TodoListViewModel { TodoList = Model.SearchResults, ShowLinksOnTasks = true })" />
 }

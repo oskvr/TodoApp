@@ -15,7 +15,7 @@
     <label for="hideCompleted">Hide completed tasks</label>
 </div>
 <partial name="_AddTaskPartial" model="@Model.TodoTask" />
-<partial name="_ListOfTasksPartial" model="@Model.TodoList.Tasks.OrderBy(t=>t.CreatedAt).OrderBy(t=>t.IsCompleted)" />
+<partial name="_TodoListPartial" model="@(new TodoListViewModel { TodoList = Model.Tasks, ShowLinksOnTasks = false })" />
 
 @if (Model.UserIsListCreator)
 {

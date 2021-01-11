@@ -25,9 +25,5 @@
 }
 else
 {
-    <partial name="_ListOfTasksPartial" model="Model.OverdueTasks" />
-}
-
-@section Scripts{
-    @{await Html.RenderPartialAsync("_ShowLinkScriptPartial");}
+    <partial name="_TodoListPartial" model="@(new TodoListViewModel { TodoList = Model.OverdueTasks, ShowLinksOnTasks = true })" />
 }

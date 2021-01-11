@@ -15,6 +15,7 @@ namespace BasicTodoList.Models
 		public ApplicationUser ApplicationUser { get; set; }
 		public Role Role { get; set; }
 
+		// Computed properties
 		public bool UserIsCreator(string userId) => ApplicationUserId == userId && Role == Role.Creator;
 	}
 }

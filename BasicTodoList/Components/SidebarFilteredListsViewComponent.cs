@@ -3,33 +3,28 @@ using System.Threading.Tasks;
 using BasicTodoList.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using BasicTodoList.Data;
-using Microsoft.EntityFrameworkCore;
 using BasicTodoList.Models;
 using System.Linq;
 using BasicTodoList.Helpers;
-using System;
 
-public class StickyTodoListsViewComponent : ViewComponent
+public class SidebarFilteredListsViewComponent : ViewComponent
 {
 	public SidebarListItemViewModel Today { get; set; }
 	public SidebarListItemViewModel Planned { get; set; }
 	public SidebarListItemViewModel Important { get; set; }
 	public SidebarListItemViewModel Overdue { get; set; }
 	public List<SidebarListItemViewModel> SidebarModels { get; set; } = new List<SidebarListItemViewModel>();
-	private IList<TodoTask> UsersTasks { get; set; }
+	private IEnumerable<TodoTask> UsersTasks { get; set; }
 
 	private readonly ApplicationDbContext context;
 
-	public StickyTodoListsViewComponent(ApplicationDbContext context)
+	public SidebarFilteredListsViewComponent(ApplicationDbContext context)
 	{
 		this.context = context;
 	}
 	public async Task<IViewComponentResult> InvokeAsync()
 	{
-		UsersTasks = await context.TodoTasks
-				.Include(task => task.TodoList)
-				.ThenInclude(list => list.TodoListUsers)
-				.Where(task => task.TodoList.TodoListUsers.Any(tlu => tlu.ApplicationUserId == User.GetUserId())).ToListAsync();
+		UsersTasks = await context.TodoTasks.GetAll(User.GetUserId());
 
 		var todaysTasksCount = UsersTasks.Count(task => task.IsDueToday && !task.IsCompleted);
 		var plannedTasksCount = UsersTasks.Count(task => task.IsPlanned && !task.IsCompleted);
