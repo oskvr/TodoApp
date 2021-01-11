@@ -10,7 +10,7 @@ using BasicTodoList.Helpers;
 public class SidebarFilteredListsViewComponent : ViewComponent
 {
 	public SidebarListItemViewModel Today { get; set; }
-	public SidebarListItemViewModel Planned { get; set; }
+	public SidebarListItemViewModel Upcoming { get; set; }
 	public SidebarListItemViewModel Important { get; set; }
 	public SidebarListItemViewModel Overdue { get; set; }
 	public List<SidebarListItemViewModel> SidebarModels { get; set; } = new List<SidebarListItemViewModel>();
@@ -40,11 +40,11 @@ public class SidebarFilteredListsViewComponent : ViewComponent
 			Icon = "today-list.svg",
 			IncompleteTasksCount = todaysTasksCount,
 		};
-		Planned = new SidebarListItemViewModel
+		Upcoming = new SidebarListItemViewModel
 		{
-			Name = "Planned",
-			AspPage = "/Tasks/Planned",
-			Icon = "planned-list.svg",
+			Name = "Upcoming",
+			AspPage = "/Tasks/Upcoming",
+			Icon = "upcoming-list.svg",
 			IncompleteTasksCount = plannedTasksCount,
 		};
 		Important = new SidebarListItemViewModel
@@ -62,7 +62,7 @@ public class SidebarFilteredListsViewComponent : ViewComponent
 			IncompleteTasksCount = overdueTasksCount,
 		};
 		SidebarModels.Add(Today);
-		SidebarModels.Add(Planned);
+		SidebarModels.Add(Upcoming);
 		SidebarModels.Add(Important);
 		SidebarModels.Add(Overdue);
 		return View(SidebarModels);

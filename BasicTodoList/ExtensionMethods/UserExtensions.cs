@@ -78,7 +78,11 @@ namespace BasicTodoList.Helpers
 			.Where(list => list.TodoListUsers.Any(tlu => tlu.ApplicationUserId == userId && tlu.Role == role))
 			.ToListAsync();
 		}
-
+		public static async Task<int> GetListCount(this DbSet<TodoList> todoList, string userId)
+		{
+			var lists = await todoList.GetAll(userId);
+			return lists.Count();
+		}
 	}
 
 }

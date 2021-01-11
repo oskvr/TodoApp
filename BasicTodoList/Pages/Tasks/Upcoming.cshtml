@@ -1,16 +1,16 @@
 ﻿@page
-@model PlannedModel
+@model UpcomingModel
 @{
-    ViewData["Title"] = "Planned";
+    ViewData["Title"] = "Upcoming";
 }
 
 <div class="flex items-baseline gap-2 p-3 border-b">
-    <h3 id="list-title" class="text-4xl">Planned</h3>
+    <h3 id="list-title" class="text-4xl">Upcoming</h3>
 </div>
 @if (Model.PlannedTasks.Count() <= 0)
 {
     <div class="grid place-items-center mt-56 gap-10">
-        <span class="text-gray-600">You don't have any planned tasks</span>
+        <span class="text-gray-600">You don't have any Upcoming tasks</span>
         <img src="~/img/icons/undraw_schedule_meeting.svg" class="h-32" alt="" />
     </div>
 }

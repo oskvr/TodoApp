@@ -4,7 +4,7 @@
 
 <div class="flex items-center justify-between break-all">
     <div class="break-normal pr-5">
-        <form method="post" class="inline-block" asp-page="/Tasks/Index" asp-page-handler="UpdateCheckbox" asp-route-id="@Model.Id" asp-route-checkbox="completed">
+        <form method="post" class="inline-block h-full" asp-page="/Tasks/Index" asp-page-handler="UpdateCheckbox" asp-route-id="@Model.Id" asp-route-checkbox="completed">
             <input asp-for="@Model.IsCompleted" onclick="this.form.submit();"
                    class="rounded-full h-5 w-5 text-green-600 hover:text-green-700 cursor-pointer hover:bg-gray-50" />
         </form>
