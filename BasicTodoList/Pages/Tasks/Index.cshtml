@@ -57,6 +57,14 @@ else
     </form>
 }
 
+
+@if (TempData["ListInviteSuccess"] != null)
+{
+    <div id="validate-success" class="bg-green-200 p-5 shadow absolute bottom-10">
+        <span class="text-green-700 rounded">@TempData["ListInviteSuccess"].ToString()</span>
+    </div>
+}
+
 @* This is only used for retrieving the listId in Javascript *@
 <a asp-route-id="@Model.TodoList.Id" class="list-id" hidden></a>
 
@@ -99,6 +107,14 @@ else
                 $(".completed-task").show();
             }
         }
+
+        const listInviteSuccess = (() => {
+            if ($("#validate-success").length) {
+                setTimeout(function () {
+                    $("#validate-success").fadeOut(1000);
+                }, 4000);
+            }
+        })();
 
         toggleTaskVisibility();
         toggleAddTask();

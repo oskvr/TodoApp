@@ -5,14 +5,13 @@
     ViewData["Title"] = "Create a new todo list";
 }
 
-<div class="flex items-baseline gap-2 p-3 border-b">
-    <h3 class="text-4xl">Create a new todo list</h3>
-</div>
-<hr />
 
-<div class="mt-5">
+
+        <hr />
+<div class="mt-10">
     <form method="post" class="rounded transition p-5 w-2/3 sm:w-3/12">
-        <input asp-for="TodoList.Name" wrap="soft" id="add-task-input" placeholder="List name" class="rounded bg-gray-100 border-none p-4 w-full" />
+        <h1 class="text-2xl font-thin mb-10">Create a new list</h1>
+        <input asp-for="TodoList.Name" wrap="soft" id="add-task-input" placeholder="List name" class="rounded bg-gray-100 border-none p-4 w-full" autofocus />
         <button class="bg-red-400 hover:bg-red-500 transition text-white py-1 px-2 mt-3 rounded">Create</button>
     </form>
 </div>

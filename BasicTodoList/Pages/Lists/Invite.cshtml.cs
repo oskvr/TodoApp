@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using BasicTodoList.Data;
@@ -12,6 +13,7 @@ namespace BasicTodoList.Pages.Lists
 	public class InviteModel : BasePageModel
 	{
 		[BindProperty]
+		[Required]
 		public string Email { get; set; }
 		public Guid Id { get; set; }
 
@@ -23,13 +25,16 @@ namespace BasicTodoList.Pages.Lists
 		}
 		public IActionResult OnGet(Guid? id)
 		{
-			if (id == null)
+			TempData["ListInviteSuccess"] = null;
+			if (id == null || !ListExists(id))
 			{
 				return NotFound();
 			}
 			Id = (Guid)id;
 			return Page();
 		}
+
+
 		public async Task<IActionResult> OnPostAsync(Guid id)
 		{
 			Id = id;
@@ -46,7 +51,7 @@ namespace BasicTodoList.Pages.Lists
 			}
 			if (_context.TodoListUser.Any(tlu => tlu.ApplicationUserId == user.Id && tlu.TodoListId == id))
 			{
-				ModelState.AddModelError("Email", "User is already added to the list");
+				ModelState.AddModelError("Email", "User has already been added to the list");
 				return Page();
 			}
 
@@ -57,8 +62,12 @@ namespace BasicTodoList.Pages.Lists
 				Role = Role.Collaborator
 			});
 			await _context.SaveChangesAsync();
-
+			TempData["ListInviteSuccess"] = $"{Email} was successfully invited to list";
 			return RedirectToPage("/Tasks/Index", new { id });
+		}
+		private bool ListExists(Guid? id)
+		{
+			return _context.TodoLists.Any(list => list.Id == id);
 		}
 	}
 }

@@ -35,7 +35,7 @@ namespace BasicTodoList.Pages.Tasks
 			}
 			if (!HasPermission(id))
 			{
-				return new ForbidResult();
+				return NotFound();
 			}
 			TodoList = await _context.TodoLists.GetById(id);
 			Tasks = TodoList.Tasks.OrderBy(t => t.CreatedAt).OrderBy(t => t.IsCompleted);
