@@ -15,6 +15,10 @@
     <label for="hideCompleted">Hide completed tasks</label>
 </div>
 <partial name="_AddTaskPartial" model="@Model.TodoTask" />
+@if (Model.TodoList.TaskCount <= 0)
+{
+    <p class="text-sm text-gray-500 text-center">The list is empty. Add a new task.</p>
+}
 <partial name="_TodoListPartial" model="@(new TodoListViewModel { TodoList = Model.Tasks, ShowLinksOnTasks = false })" />
 
 @if (Model.UserIsListCreator)
@@ -58,10 +62,10 @@ else
 }
 
 
-@if (TempData["ListInviteSuccess"] != null)
+@if (TempData["ListInviteMessage"] != null)
 {
     <div id="validate-success" class="bg-green-200 p-5 shadow absolute bottom-10">
-        <span class="text-green-700 rounded">@TempData["ListInviteSuccess"].ToString()</span>
+        <span class="text-green-700 rounded">@TempData["ListInviteMessage"].ToString()</span>
     </div>
 }
 
@@ -84,7 +88,7 @@ else
 
         const toggleAddTask = () => {
             $('#add-task-input').focus(function () {
-                $("#add-task-extra").slideDown("fast");
+                $("#add-task-extra").slideDown(100);
             })
 
             $('#cancel-button').click(function () {
@@ -107,14 +111,6 @@ else
                 $(".completed-task").show();
             }
         }
-
-        const listInviteSuccess = (() => {
-            if ($("#validate-success").length) {
-                setTimeout(function () {
-                    $("#validate-success").fadeOut(1000);
-                }, 4000);
-            }
-        })();
 
         toggleTaskVisibility();
         toggleAddTask();

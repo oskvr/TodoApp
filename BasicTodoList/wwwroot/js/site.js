@@ -16,7 +16,7 @@ const highlightSelectSidebarItem = (() => {
             }
         });
     } else {
-        // Get one of the top categories (eg. Important) from the page title and select that
+        // Get one of the top elements (eg. Important) from the current page title and select that
         const pageTitle = $("#list-title").html();
         const topCategory = $(`.sidebar-link h3:contains(${pageTitle})`);
         topCategory.closest("li").addClass(selectedStyle);
@@ -41,4 +41,13 @@ const createTooltips = (() => {
     tooltip(".uncompleted-task input", "Mark as completed");
     tooltip(".completed-task input", "Mark as not completed");
     tooltip(".btn-delete-task", "Delete task");
+})();
+
+// Any time a green success message is shown it will fade out after 4 seconds
+const actionSuccessMessage = (() => {
+    if ($("#validate-success").length) {
+        setTimeout(function () {
+            $("#validate-success").fadeOut(1000);
+        }, 4000);
+    }
 })();

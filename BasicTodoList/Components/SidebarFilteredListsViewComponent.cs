@@ -61,6 +61,8 @@ public class SidebarFilteredListsViewComponent : ViewComponent
 			Icon = "overdue-list.svg",
 			IncompleteTasksCount = overdueTasksCount,
 		};
+
+		// This decides the order of the sidebar filters
 		SidebarModels.Add(Today);
 		SidebarModels.Add(Upcoming);
 		SidebarModels.Add(Important);

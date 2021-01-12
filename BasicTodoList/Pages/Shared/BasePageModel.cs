@@ -12,6 +12,9 @@ namespace BasicTodoList.Pages.Shared
     [Authorize]
     public class BasePageModel : PageModel
     {
+		/// <summary>
+		/// Id of the currently signed in user
+		/// </summary>
 		public string UserId
 		{
 			get { return User.GetUserId(); }

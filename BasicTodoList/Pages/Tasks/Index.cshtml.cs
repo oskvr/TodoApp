@@ -33,9 +33,11 @@ namespace BasicTodoList.Pages.Tasks
 			{
 				return NotFound();
 			}
-			if (!HasPermission(id))
+
+			if (!UserHasAccess(id))
 			{
-				return NotFound();
+				// In production all ForbidResults() could return NotFound() instead. Security through obscurity etc.
+				return new ForbidResult();
 			}
 			TodoList = await _context.TodoLists.GetById(id);
 			Tasks = TodoList.Tasks.OrderBy(t => t.CreatedAt).OrderBy(t => t.IsCompleted);
@@ -45,6 +47,10 @@ namespace BasicTodoList.Pages.Tasks
 		}
 		public async Task<IActionResult> OnPostAsync(Guid id)
 		{
+			if (!UserHasAccess(id))
+			{
+				return NotFound();
+			}
 			if (!ModelState.IsValid)
 			{
 				return RedirectToPage(nameof(Index), new { id = TodoTask.TodoListId });
@@ -125,7 +131,8 @@ namespace BasicTodoList.Pages.Tasks
 				_context.TodoLists.Remove(TodoList);
 				await _context.SaveChangesAsync();
 			}
-
+			// A message is created to be displayed on /Tasks/Today
+			TempData["ListDeleteMessage"] = $"{TodoList.Name} was successfully deleted";
 			return RedirectToPage("/Tasks/Today");
 		}
 
@@ -156,7 +163,7 @@ namespace BasicTodoList.Pages.Tasks
 			return _context.TodoTasks.Any(task => task.Id == id);
 		}
 
-		private bool HasPermission(Guid? listId)
+		private bool UserHasAccess(Guid? listId)
 		{
 			return _context.TodoListUser.Any(tlu => tlu.ApplicationUserId == UserId && tlu.TodoListId == listId);
 		}

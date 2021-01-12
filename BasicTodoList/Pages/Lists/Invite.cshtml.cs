@@ -7,6 +7,7 @@ using BasicTodoList.Models;
 using BasicTodoList.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace BasicTodoList.Pages.Lists
 {
@@ -25,10 +26,14 @@ namespace BasicTodoList.Pages.Lists
 		}
 		public IActionResult OnGet(Guid? id)
 		{
-			TempData["ListInviteSuccess"] = null;
 			if (id == null || !ListExists(id))
 			{
 				return NotFound();
+			}
+			var todoList = _context.TodoLists.Include(list=>list.TodoListUsers).FirstOrDefault(list=>list.Id == id);
+			if (!todoList.IsUserCreator(UserId))
+			{
+				return new ForbidResult();
 			}
 			Id = (Guid)id;
 			return Page();
@@ -44,12 +49,12 @@ namespace BasicTodoList.Pages.Lists
 				return Page();
 			}
 			var user = _context.Users.FirstOrDefault(user => user.Email.ToLower() == Email.ToLower());
-			if (!_context.Users.Any(user => user.Email.ToLower() == Email.ToLower()))
+			if (!EmailExists())
 			{
 				ModelState.AddModelError("Email", "Email doesn't exist");
 				return Page();
 			}
-			if (_context.TodoListUser.Any(tlu => tlu.ApplicationUserId == user.Id && tlu.TodoListId == id))
+			if (TodoListUserExists(id, user))
 			{
 				ModelState.AddModelError("Email", "User has already been added to the list");
 				return Page();
@@ -62,9 +67,21 @@ namespace BasicTodoList.Pages.Lists
 				Role = Role.Collaborator
 			});
 			await _context.SaveChangesAsync();
-			TempData["ListInviteSuccess"] = $"{Email} was successfully invited to list";
+			// A message is created to be displayed on /Tasks/Index
+			TempData["ListInviteMessage"] = $"{Email} was successfully invited to the list";
 			return RedirectToPage("/Tasks/Index", new { id });
 		}
+
+		private bool TodoListUserExists(Guid listId, ApplicationUser user)
+		{
+			return _context.TodoListUser.Any(tlu => tlu.ApplicationUserId == user.Id && tlu.TodoListId == listId);
+		}
+
+		private bool EmailExists()
+		{
+			return _context.Users.Any(user => user.Email.ToLower() == Email.ToLower());
+		}
+
 		private bool ListExists(Guid? id)
 		{
 			return _context.TodoLists.Any(list => list.Id == id);

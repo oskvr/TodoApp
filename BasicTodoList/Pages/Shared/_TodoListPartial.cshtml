@@ -4,7 +4,7 @@
 <ul class="mt-10">
     @foreach (var task in Model.TodoList)
     {
-    <li class="@(task.IsCompleted?"completed-task":"uncompleted-task") task hover:bg-gray-50 p-5 border-b">
+    <li class="@(task.IsCompleted?"completed-task":"uncompleted-task") task hover:bg-gray-50 p-5 border-b"> 
         <partial name="_TodoTaskPartial" model="task" />
         @if (Model.ShowLinksOnTasks)
         {
