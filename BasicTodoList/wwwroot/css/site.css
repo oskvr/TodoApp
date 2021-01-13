@@ -1,3 +1,10 @@
 ﻿.add-task-form {
   min-width: 30rem;
 }
+
+.validation-summary-errors{
+    background: #f58989;
+    color: #651212;
+    padding: 10px;
+    border-radius: 0.2rem;
+}
