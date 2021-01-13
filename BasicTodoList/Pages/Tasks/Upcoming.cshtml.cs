@@ -10,7 +10,7 @@ namespace BasicTodoList.Pages.Tasks
 {
 	public class UpcomingModel : BasePageModel
     {
-		public IEnumerable<TodoTask> PlannedTasks { get; set; }
+		public IEnumerable<TodoTask> UpcomingTasks { get; set; }
 
 		private readonly ApplicationDbContext context;
 
@@ -20,7 +20,7 @@ namespace BasicTodoList.Pages.Tasks
 		}
 		public async Task OnGet()
 		{
-			PlannedTasks = await context.TodoTasks.GetPlanned(UserId);
+			UpcomingTasks = await context.TodoTasks.GetUpcoming(UserId);
 		}
 	}
 }

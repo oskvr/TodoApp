@@ -7,14 +7,14 @@
 <div class="flex items-baseline gap-2 p-3 border-b">
     <h3 id="list-title" class="text-4xl">Upcoming</h3>
 </div>
-@if (Model.PlannedTasks.Count() <= 0)
+@if (Model.UpcomingTasks.Count() <= 0)
 {
     <div class="grid place-items-center mt-56 gap-10">
-        <span class="text-gray-600">You don't have any Upcoming tasks</span>
+        <span class="text-gray-600">You don't have any upcoming tasks</span>
         <img src="~/img/icons/undraw_schedule_meeting.svg" class="h-32" alt="" />
     </div>
 }
 else
 {
-<partial name="_TodoListPartial" model="@(new TodoListViewModel { TodoList = Model.PlannedTasks, ShowLinksOnTasks = true })" />
+<partial name="_TodoListPartial" model="@(new TodoListViewModel { TodoList = Model.UpcomingTasks, ShowLinksOnTasks = true })" />
 }

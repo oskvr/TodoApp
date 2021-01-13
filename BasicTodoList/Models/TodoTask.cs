@@ -18,6 +18,6 @@ namespace BasicTodoList.Models
 
 		public bool IsDueToday => DueAt != null && DueAt.Value.Date == DateTime.Now.Date;
 
-		public bool IsPlanned => DueAt != null && DueAt.Value.Date >= DateTime.Today;
+		public bool IsUpcoming => DueAt != null && DueAt.Value.Date >= DateTime.Today;
 	}
 }

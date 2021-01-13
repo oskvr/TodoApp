@@ -33,10 +33,10 @@ namespace BasicTodoList.Helpers
 			var usersTasks = await tasks.GetAll(userId);
 			return usersTasks.Where(task => task.IsOverdue && !task.IsCompleted);
 		}
-		public static async Task<IEnumerable<TodoTask>> GetPlanned(this DbSet<TodoTask> tasks, string userId)
+		public static async Task<IEnumerable<TodoTask>> GetUpcoming(this DbSet<TodoTask> tasks, string userId)
 		{
 			var usersTasks = await tasks.GetAll(userId);
-			return usersTasks.Where(task => task.IsPlanned && !task.IsCompleted).OrderBy(task => task.DueAt);
+			return usersTasks.Where(task => task.IsUpcoming && !task.IsCompleted).OrderBy(task => task.DueAt);
 		}
 		public static async Task<IEnumerable<TodoTask>> GetSearchResults(this DbSet<TodoTask> tasks, string query, string userId)
 		{

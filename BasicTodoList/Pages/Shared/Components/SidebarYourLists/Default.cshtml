@@ -19,7 +19,7 @@
     <ul id="your-lists">
         @foreach (var list in Model)
         {
-            <partial name="_SidebarListItemPartial" model="@(new SidebarListItemViewModel { IncompleteTasksCount = list.IncompleteCount, AspPage ="/Tasks/Index", Name=list.Name, RouteId=list.Id.ToString() })" />
+            <partial name="_SidebarListItemPartial" model="@(new SidebarListItemViewModel { Count = list.IncompleteCount, AspPage ="/Tasks/Index", Name=list.Name, RouteId=list.Id.ToString() })" />
         }
     </ul>
 </div>

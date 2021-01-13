@@ -27,7 +27,7 @@ public class SidebarFilteredListsViewComponent : ViewComponent
 		UsersTasks = await context.TodoTasks.GetAll(User.GetUserId());
 
 		var todaysTasksCount = UsersTasks.Count(task => task.IsDueToday && !task.IsCompleted);
-		var plannedTasksCount = UsersTasks.Count(task => task.IsPlanned && !task.IsCompleted);
+		var upcomingTasksCount = UsersTasks.Count(task => task.IsUpcoming && !task.IsCompleted);
 		var importantTasksCount = UsersTasks.Count(task => task.IsImportant && !task.IsCompleted);
 		var overdueTasksCount = UsersTasks.Count(task => task.IsOverdue && !task.IsCompleted);
 
@@ -38,28 +38,28 @@ public class SidebarFilteredListsViewComponent : ViewComponent
 			Name = "Today",
 			AspPage = "/Tasks/Today",
 			Icon = "today-list.svg",
-			IncompleteTasksCount = todaysTasksCount,
+			Count = todaysTasksCount,
 		};
 		Upcoming = new SidebarListItemViewModel
 		{
 			Name = "Upcoming",
 			AspPage = "/Tasks/Upcoming",
 			Icon = "upcoming-list.svg",
-			IncompleteTasksCount = plannedTasksCount,
+			Count = upcomingTasksCount,
 		};
 		Important = new SidebarListItemViewModel
 		{
 			Name = "Important",
 			AspPage = "/Tasks/Important",
 			Icon = "important-list.svg",
-			IncompleteTasksCount = importantTasksCount,
+			Count = importantTasksCount,
 		};
 		Overdue = new SidebarListItemViewModel
 		{
 			Name = "Overdue",
 			AspPage = "/Tasks/Overdue",
 			Icon = "overdue-list.svg",
-			IncompleteTasksCount = overdueTasksCount,
+			Count = overdueTasksCount,
 		};
 
 		// This decides the order of the sidebar filters

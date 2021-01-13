@@ -36,7 +36,7 @@ namespace BasicTodoList.Pages.Tasks
 
 			if (!UserHasAccess(id))
 			{
-				// In production all ForbidResults() could return NotFound() instead. Security through obscurity etc.
+				// Consider changing these to NotFound() instead. Security through obscurity etc.
 				return new ForbidResult();
 			}
 			TodoList = await _context.TodoLists.GetById(id);
@@ -92,8 +92,7 @@ namespace BasicTodoList.Pages.Tasks
 				}
 			}
 
-			// Since checkboxes can be updated in multiple views we need to 
-			// redirect the user back to where he came from using the referer URL
+			// Since checkboxes can be updated in multiple views we redirect the user back to where he came from using the referer URL
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 

@@ -3,7 +3,7 @@
 	public class SidebarListItemViewModel
     {
 		public string Name { get; set; }
-		public int? IncompleteTasksCount { get; set; }
+		public int? Count { get; set; }
 		/// <summary>
 		/// Add the name of an SVG file found in /wwwroot/img/icons, e.g. "icon.svg"
 		/// </summary>
