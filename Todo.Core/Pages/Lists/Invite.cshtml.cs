@@ -2,14 +2,14 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using BasicTodoList.Data;
-using BasicTodoList.Models;
-using BasicTodoList.Pages.Shared;
+using Todo.Core.Data;
+using Todo.Core.Models;
+using Todo.Core.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace BasicTodoList.Pages.Lists
+namespace Todo.Core.Pages.Lists
 {
 	public class InviteModel : BasePageModel
 	{

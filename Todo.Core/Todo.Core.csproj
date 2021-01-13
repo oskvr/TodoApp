@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>aspnet-BasicTodoList-A4AD35A4-C9C1-49E1-9E26-44A29F7E9C1D</UserSecretsId>
+    <UserSecretsId>aspnet-Todo.Core-A4AD35A4-C9C1-49E1-9E26-44A29F7E9C1D</UserSecretsId>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
   </PropertyGroup>
 

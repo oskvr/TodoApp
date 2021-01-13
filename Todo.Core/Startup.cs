@@ -1,5 +1,5 @@
-using BasicTodoList.Data;
-using BasicTodoList.Models;
+using Todo.Core.Data;
+using Todo.Core.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace BasicTodoList
+namespace Todo.Core
 {
 	public class Startup
 	{

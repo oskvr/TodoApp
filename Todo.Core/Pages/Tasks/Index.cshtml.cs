@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using BasicTodoList.Data;
-using BasicTodoList.Models;
+using Todo.Core.Data;
+using Todo.Core.Models;
 using Microsoft.AspNetCore.Authorization;
-using BasicTodoList.Helpers;
-using BasicTodoList.Pages.Shared;
+using Todo.Core.Helpers;
+using Todo.Core.Pages.Shared;
 
-namespace BasicTodoList.Pages.Tasks
+namespace Todo.Core.Pages.Tasks
 {
 
 	public class IndexModel : BasePageModel

@@ -1,4 +1,4 @@
-﻿namespace BasicTodoList.Models.ViewModels
+﻿namespace Todo.Core.Models.ViewModels
 {
 	public class SidebarListItemViewModel
     {

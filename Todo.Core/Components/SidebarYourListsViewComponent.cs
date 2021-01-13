@@ -1,12 +1,12 @@
-﻿using BasicTodoList.Models;
+﻿using Todo.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BasicTodoList.Helpers;
-using BasicTodoList.Data;
+using Todo.Core.Helpers;
+using Todo.Core.Data;
 
-namespace BasicTodoList.Components
+namespace Todo.Core.Components
 {
 	public class SidebarYourListsViewComponent : ViewComponent
 	{

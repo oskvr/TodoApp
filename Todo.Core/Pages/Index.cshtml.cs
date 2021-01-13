@@ -1,10 +1,10 @@
-﻿using BasicTodoList.Models;
+﻿using Todo.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace BasicTodoList.Pages
+namespace Todo.Core.Pages
 {
 	public class IndexModel : PageModel
 	{

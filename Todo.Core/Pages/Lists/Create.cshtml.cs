@@ -2,13 +2,13 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using BasicTodoList.Data;
-using BasicTodoList.Models;
+using Todo.Core.Data;
+using Todo.Core.Models;
 using Microsoft.AspNetCore.Authorization;
-using BasicTodoList.Helpers;
-using BasicTodoList.Pages.Shared;
+using Todo.Core.Helpers;
+using Todo.Core.Pages.Shared;
 
-namespace BasicTodoList.Pages.Lists
+namespace Todo.Core.Pages.Lists
 {
     public class CreateModel : BasePageModel
     {

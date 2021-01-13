@@ -16,7 +16,7 @@
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation"
       }
     },
-    "BasicTodoList": {
+    "Todo.Core": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

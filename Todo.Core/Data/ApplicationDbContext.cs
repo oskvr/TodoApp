@@ -1,8 +1,8 @@
-﻿using BasicTodoList.Models;
+﻿using Todo.Core.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace BasicTodoList.Data
+namespace Todo.Core.Data
 {
 	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 	{

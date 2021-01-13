@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace BasicTodoList.Pages
+namespace Todo.Core.Pages
 {
 	public class PrivacyModel : PageModel
 	{

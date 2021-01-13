@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace BasicTodoList.Models
+namespace Todo.Core.Models
 {
 	public class TodoList : BaseEntity
     {

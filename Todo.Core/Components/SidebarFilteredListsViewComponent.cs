@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BasicTodoList.Models.ViewModels;
+using Todo.Core.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using BasicTodoList.Data;
-using BasicTodoList.Models;
+using Todo.Core.Data;
+using Todo.Core.Models;
 using System.Linq;
-using BasicTodoList.Helpers;
+using Todo.Core.Helpers;
 
 public class SidebarFilteredListsViewComponent : ViewComponent
 {

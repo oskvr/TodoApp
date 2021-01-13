@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BasicTodoList.Data;
-using BasicTodoList.Helpers;
-using BasicTodoList.Models;
-using BasicTodoList.Pages.Shared;
+using Todo.Core.Data;
+using Todo.Core.Helpers;
+using Todo.Core.Models;
+using Todo.Core.Pages.Shared;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BasicTodoList.Pages.Tasks
+namespace Todo.Core.Pages.Tasks
 {
 	public class OverdueModel : BasePageModel
 	{

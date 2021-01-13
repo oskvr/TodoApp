@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 
-namespace BasicTodoList.Models
+namespace Todo.Core.Models
 {
 	public class ApplicationUser : IdentityUser
 	{

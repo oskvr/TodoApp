@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BasicTodoList.Models
+namespace Todo.Core.Models
 {
 	public enum Role
 	{

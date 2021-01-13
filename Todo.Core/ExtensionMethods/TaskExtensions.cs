@@ -1,5 +1,5 @@
-﻿using BasicTodoList.Data;
-using BasicTodoList.Models;
+﻿using Todo.Core.Data;
+using Todo.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +9,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 
-namespace BasicTodoList.Helpers
+namespace Todo.Core.Helpers
 {
 	// Various extension methods for retrieving tasks for a specific user
 	public static class TaskExtensions

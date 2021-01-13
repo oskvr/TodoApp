@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace BasicTodoList.Models
+namespace Todo.Core.Models
 {
 	public class TodoTask : BaseEntity
 	{
