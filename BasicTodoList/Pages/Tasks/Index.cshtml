@@ -15,13 +15,8 @@
     <label for="hideCompleted">Hide completed tasks</label>
 </div>
 <partial name="_AddTaskPartial" model="@Model.TodoTask" />
-@if (Model.TodoList.TaskCount <= 0)
-{
-    <p class="text-sm text-gray-500 text-center">The list is empty. Add a new task.</p>
-}
 <partial name="_TodoListPartial" model="@(new TodoListViewModel { TodoList = Model.Tasks, ShowLinksOnTasks = false })" />
 
-<hr />
 @if (Model.UserIsListCreator)
 {
     <div class="flex mt-3 pt-3 space-x-5 text-gray-700">
@@ -50,7 +45,7 @@
 else
 {
     <form asp-page-handler="RemoveCollaborator" asp-route-id="@Model.TodoList.Id" class="flex mt-3 pt-3 space-x-5 text-gray-700">
-        <button class="hover:text-black">
+        <button class="hover:text-black" onclick="return confirm('You will no longer be a part of this list. Do you want to continue?')">
             <span class="flex items-center gap-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-x" viewBox="0 0 16 16">
                     <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
@@ -89,7 +84,7 @@ else
 
         const toggleAddTask = () => {
             $('#add-task-input').focus(function () {
-                $("#add-task-extra").slideDown(100);
+                $("#add-task-extra").slideDown("fast");
             })
 
             $('#cancel-button').click(function () {
@@ -106,10 +101,10 @@ else
 
             if (localStorage.getItem("hideCompletedTasks") === "true") {
                 checkbox.checked = true;
-                $(".completed-task").hide();
+                $(".completed-task").addClass("hidden");
             } else {
                 checkbox.checked = false;
-                $(".completed-task").show();
+                $(".completed-task").removeClass("hidden");
             }
         }
 

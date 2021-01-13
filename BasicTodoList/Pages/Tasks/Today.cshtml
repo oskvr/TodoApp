@@ -32,9 +32,9 @@ else
     <partial name="_TodoListPartial" model="@(new TodoListViewModel { TodoList = Model.TodaysTasks, ShowLinksOnTasks = true })" />
 }
 
-@if (TempData["ListDeleteMessage"] != null)
+@if (TempData["UserActionMessage"] != null)
 {
     <div id="validate-success" class="bg-green-200 p-5 shadow absolute bottom-10">
-        <span class="text-green-700 rounded">@TempData["ListDeleteMessage"].ToString()</span>
+        <span class="text-green-700 rounded">@TempData["UserActionMessage"].ToString()</span>
     </div>
 }

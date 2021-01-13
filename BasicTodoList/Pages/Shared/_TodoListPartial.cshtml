@@ -1,17 +1,24 @@
 ﻿@model TodoListViewModel
 
 @*Partial for displaying a list of tasks*@
-<ul class="mt-10">
-    @foreach (var task in Model.TodoList)
-    {
-    <li class="@(task.IsCompleted?"completed-task":"uncompleted-task") task hover:bg-gray-50 p-5 border-t"> 
-        <partial name="_TodoTaskPartial" model="task" />
-        @if (Model.ShowLinksOnTasks)
+@if (Model.TodoList.Count() <= 0)
+{
+    <p class="my-24 text-center text-sm text-gray-500">The list is empty. Add a new task.</p>
+}
+else
+{
+    <ul class="mt-10">
+        @foreach (var task in Model.TodoList)
         {
-            <a asp-page="/Tasks/Index" asp-route-id="@task.TodoListId" class="task_list-link text-xs text-gray-500 hover:text-black mt-2 ml-9">
-                @task.TodoList.Name
-            </a>
+            <li class="@(task.IsCompleted?"completed-task":"uncompleted-task") task hover:bg-gray-50 p-5 border-b">
+                <partial name="_TodoTaskPartial" model="task" />
+                @if (Model.ShowLinksOnTasks)
+                {
+                    <a asp-page="/Tasks/Index" asp-route-id="@task.TodoListId" class="task_list-link text-xs text-gray-500 hover:text-black mt-2 ml-9">
+                        @task.TodoList.Name
+                    </a>
+                }
+            </li>
         }
-    </li>
-    }
-</ul>
+    </ul>
+}

@@ -131,7 +131,7 @@ namespace BasicTodoList.Pages.Tasks
 				await _context.SaveChangesAsync();
 			}
 			// A message is created to be displayed on /Tasks/Today
-			TempData["ListDeleteMessage"] = $"{TodoList.Name} was successfully deleted";
+			TempData["UserActionMessage"] = $"{TodoList.Name} was successfully deleted";
 			return RedirectToPage("/Tasks/Today");
 		}
 
@@ -144,7 +144,7 @@ namespace BasicTodoList.Pages.Tasks
 			{
 				return NotFound();
 			}
-			var user = await _context.TodoListUser
+			var user = await _context.TodoListUser.Include(tlu=>tlu.TodoList)
 				.FirstOrDefaultAsync(tlu => tlu.ApplicationUserId == UserId
 				&& tlu.TodoListId == id
 				&& tlu.Role == Role.Collaborator);
@@ -154,6 +154,8 @@ namespace BasicTodoList.Pages.Tasks
 				await _context.SaveChangesAsync();
 			}
 
+			// A message is created to be displayed on /Tasks/Today
+			TempData["UserActionMessage"] = $"Successfully removed from {user.TodoList.Name}";
 			return RedirectToPage("/Tasks/Today");
 		}
 
