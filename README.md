@@ -32,6 +32,8 @@ UI libraries and controls:
 
 - [.NET 5.0 SDK or higher](https://dotnet.microsoft.com/download/dotnet/5.0)
 
+  - `dotnet tool install --global dotnet-ef`
+
 - [SQL Server Express LocalDB](http://www.hanselman.com/blog/download-sql-server-express)
 
 - An IDE or Editor of your choice
@@ -40,12 +42,12 @@ UI libraries and controls:
 
 ```sh
 > git clone https://github.com/oskvr/TodoApp.git TodoApp
-> cd todo.core
-> cd dotnet ef database update
+> cd TodoApp/Todo.Core
+> dotnet ef database update
 > dotnet run
 ```
 
-Open a browser and navigate to https://localhost:5000 to see the application running.
+Open a browser and navigate to https://localhost:5001 to see the application running.
 
 For people running Visual Studio 2019 most of the above steps will be handled by the IDE. Just get the source code, open the `.sln` file, run `Update-Database` in Package Manager Console and you should be ready to go. 
 
