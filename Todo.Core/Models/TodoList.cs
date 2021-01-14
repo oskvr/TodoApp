@@ -7,6 +7,7 @@ namespace Todo.Core.Models
 	public class TodoList : BaseEntity
     {
 		[Required]
+		[MaxLength(100, ErrorMessage = "List name can't be more than 100 characters long")]
 		public string Name { get; set; }
 		public ICollection<TodoTask> Tasks { get; set; }
 		public ICollection<TodoListUser> TodoListUsers { get; set; }
